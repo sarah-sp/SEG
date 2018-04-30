@@ -67,6 +67,10 @@ public class LoadPanel extends JPanel
 		UIManager.put("OptionPane.minimumSize", new Dimension(300,150));
 		UIManager.put("OptionPane.messageFont", new FontUIResource(font));
 		
+		File folder = new File("database");
+		if(!folder.exists()){
+			folder.mkdir();
+		}
 		init();
 		
 	}
