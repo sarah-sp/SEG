@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -46,12 +47,13 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import gui.custom.CustomButton;
 import gui.custom.CustomPanel;
 
 import model.CompareStorage;
 
 
-public class ComparePanel extends JPanel 
+public class ComparePanel extends JPanel implements BorderInterface
 {
 	private static final long serialVersionUID = 1L;
 	private MyFrame frame;
@@ -74,7 +76,6 @@ public class ComparePanel extends JPanel
 		setBorder(new EmptyBorder(15, 15, 15, 15));
 		setLayout(new BorderLayout());
 		
-
 		CustomPanel topPanel = new CustomPanel(frame, panel,"Compare Campaigns");
 
 		JPanel leftPanel = new JPanel();
@@ -88,8 +89,14 @@ public class ComparePanel extends JPanel
 		JLabel labelC = new JLabel("Select Campaign to Compare:");
 		JLabel labelM = new JLabel("Select Metric to Compare:");
 		JLabel labelG = new JLabel("Select Granularity:");
-		JButton addCampaign = new JButton("Add Campaign");
-		JButton update = new JButton("Update");
+		CustomButton addCampaign = new CustomButton("Add Campaign");
+		CustomButton update = new CustomButton("Update");
+		
+		addCampaign.setPreferredSize(new Dimension(100,30));
+		addCampaign.setFontSize(13);
+		update.setPreferredSize(new Dimension(100,30));
+		update.setFontSize(13);
+		
 		String[] metricChoices = {"None", "Number of Impressions", "Number of Clicks", "Number of Uniques", "Number of Bounces", "Number of Conversions", "Total Cost"};
 		String[] granularities = {"Day", "Week", "Month"};
 		metrics = new JComboBox<String>(metricChoices);
@@ -611,5 +618,11 @@ public class ComparePanel extends JPanel
 		getCampaigns();
 		frame.revalidate();
 		frame.repaint();
+	}
+
+	@Override
+	public void refreshBorder(Color bg) {
+		centralPanel.setBorder(new LineBorder(bg, 3));
+		
 	}
 }

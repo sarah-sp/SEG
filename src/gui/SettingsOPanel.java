@@ -21,7 +21,7 @@ public class SettingsOPanel extends CustomOPanel
 
 		Font font = new Font("Courier", Font.BOLD,32);
 		
-		JLabel label = new JLabel("<html><font face=Courier size=17><center>Bounce Rate Definition: " + frame.getBounceDef() + "</center><br><center>Colour Theme: " + Theme.ACTIVE_THEME + " </center><br> <center>User Guide</center><br><center>About</center></html>");
+		JLabel label = new JLabel("<html><font face=Courier size=17><center>Campaign Deletion</center><br><center>Bounce Rate Definition: " + frame.getBounceDef() + "</center><br><center>Colour Theme: " + Theme.ACTIVE_THEME + " </center><br> <center>User Guide</center><br><center>About</center></html>");
 		label.setFont(font);
 		label.setForeground(Theme.ACTIVE_FG);
 		

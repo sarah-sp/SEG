@@ -75,7 +75,7 @@ public class CustomButton extends JButton {
 	}
 	
 	public void setFontSize(int size){
-		this.setFont(new Font("Courier", Font.PLAIN, size));
+		this.setFont(new Font("Courier", Font.BOLD, size));
 	}
 	
 	public void refreshBorder(Color c){
