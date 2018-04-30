@@ -41,7 +41,7 @@ public class MyFrame extends JFrame
 	protected FilterStorage fStorage;
 	protected CompareStorage cStorage;
 
-	public MyFrame(String s)  // Move bounceDef (its place shouldn't be here)
+	public MyFrame(String s)  
 	{		
 		super(s);
 		font = new Font("Above DEMO", Font.BOLD, 70);
@@ -88,9 +88,10 @@ public class MyFrame extends JFrame
 		contentPane = new JPanel();
 		contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.PAGE_AXIS));
 		contentPane.setBackground(Theme.ACTIVE_BG);
-		
+
 		JScrollPane jsp = new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		setContentPane(jsp);
+
 
 		boolean dbExists = new File("database/campaign.db").exists();
 		
@@ -118,7 +119,7 @@ public class MyFrame extends JFrame
 		setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
 		requestFocusInWindow();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 
 		setVisible(true);
 	}
@@ -126,14 +127,12 @@ public class MyFrame extends JFrame
 	public void openClient() 
 	{
 
-		System.out.println("cc");
 		contentPane.removeAll();
 		setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-
-		
 		setMaximumSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setMinimumSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+		setLocationRelativeTo(null);
 		
 		bounceDef = "time";
 		fStorage = new FilterStorage(this);
@@ -186,13 +185,10 @@ public class MyFrame extends JFrame
 	public void refreshMain() 
 	{
 		contentPane.removeAll();
-
 		MainPanel mainPanel = new MainPanel(this, contentPane, fStorage, cStorage);
 		this.mainPanel = mainPanel;
 		mainPanel.changeTheme(mainPanel, Theme.ACTIVE_BG, Theme.ACTIVE_FG, Theme.ACTIVE_HOVER);
 		contentPane.add(mainPanel);
 		contentPane.revalidate();
-
 	}
-
 }
