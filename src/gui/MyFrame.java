@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import controller.Controller;
 import model.CompareStorage;
@@ -83,7 +84,8 @@ public class MyFrame extends JFrame
 		contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.PAGE_AXIS));
 		contentPane.setBackground(Theme.ACTIVE_BG);
 		
-		setContentPane(contentPane);
+		JScrollPane jsp = new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		setContentPane(jsp);
 	
 		JPanel logoPanel = new JPanel();
 		logoPanel.setLayout(new BorderLayout());

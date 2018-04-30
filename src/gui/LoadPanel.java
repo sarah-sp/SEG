@@ -80,8 +80,9 @@ public class LoadPanel extends JPanel
 		
 		if(dbExists){
 			frame.setFont(font);
-			frame.pack();
 			frame.openClient();
+			frame.revalidate();
+			frame.pack();
 		} 
 
 		load.addActionListener(new ActionListener()
