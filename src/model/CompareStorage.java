@@ -22,7 +22,7 @@ public class CompareStorage
 	public void findCampaigns()
 	{
 		campaigns.clear();
-		Path dir = Paths.get("Database/");//Create path to search
+		Path dir = Paths.get("database/");//Create path to search
 		File file = new File(dir.toFile().toString());
 		File[] contents = file.listFiles(); //Get messages in inbox
 		

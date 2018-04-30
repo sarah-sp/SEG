@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -47,10 +46,10 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import gui.custom.CustomButton;
 import gui.custom.CustomPanel;
 
 import model.CompareStorage;
+import model.Theme;
 
 
 public class ComparePanel extends JPanel implements BorderInterface
@@ -89,14 +88,8 @@ public class ComparePanel extends JPanel implements BorderInterface
 		JLabel labelC = new JLabel("Select Campaign to Compare:");
 		JLabel labelM = new JLabel("Select Metric to Compare:");
 		JLabel labelG = new JLabel("Select Granularity:");
-		CustomButton addCampaign = new CustomButton("Add Campaign");
-		CustomButton update = new CustomButton("Update");
-		
-		addCampaign.setPreferredSize(new Dimension(100,30));
-		addCampaign.setFontSize(13);
-		update.setPreferredSize(new Dimension(100,30));
-		update.setFontSize(13);
-		
+		JButton addCampaign = new JButton("Add Campaign");
+		JButton update = new JButton("Update");
 		String[] metricChoices = {"None", "Number of Impressions", "Number of Clicks", "Number of Uniques", "Number of Bounces", "Number of Conversions", "Total Cost"};
 		String[] granularities = {"Day", "Week", "Month"};
 		metrics = new JComboBox<String>(metricChoices);
@@ -622,7 +615,7 @@ public class ComparePanel extends JPanel implements BorderInterface
 
 	@Override
 	public void refreshBorder(Color bg) {
-		centralPanel.setBorder(new LineBorder(bg, 3));
+		centralPanel.setBorder(new LineBorder(Theme.ACTIVE_FG, 3));
 		
 	}
 }
