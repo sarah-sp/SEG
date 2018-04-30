@@ -12,6 +12,8 @@ import javax.swing.event.HyperlinkListener;
 
 public class HelpFrame extends JFrame {
 	
+
+	private static final long serialVersionUID = 1L;
 	private String panelName;
 
 	public HelpFrame(String panelName) {

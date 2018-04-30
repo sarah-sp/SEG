@@ -41,10 +41,14 @@ public class LoadPanel extends JPanel
 	public LoadPanel(MyFrame frame, JPanel panel)
 	{
 		this.frame = frame;
-		this.panel = panel;
+		this.setPanel(panel);
 		centralPanel = new JPanel();
-		dbExists = new File("database/campaign.db").exists();
+		dbExists = true;
+		init();
+	}
 	
+	public void init()
+	{
 		font = new Font("Arial", Font.PLAIN, 18);
 		
 		load = new JButton("Load Campaign");
@@ -59,31 +63,17 @@ public class LoadPanel extends JPanel
 		
 		centralPanel.setBackground(Theme.ACTIVE_BG);
 		centralPanel.add(buttonPanel);
+
+		dbExists = frame.getController().createDatabase("campaign.db");
+		
+		if(!dbExists) //If a new database
+		{
+			frame.getController().createTables("campaign.db"); 
+		}
 		
 		setBorder(new EmptyBorder(15, 15, 15, 15));
 		setBackground(Theme.ACTIVE_BG);
 		add(centralPanel);
-
-		UIManager.put("OptionPane.minimumSize", new Dimension(300,150));
-		UIManager.put("OptionPane.messageFont", new FontUIResource(font));
-		
-		File folder = new File("database");
-		if(!folder.exists()){
-			folder.mkdir();
-		}
-		init();
-		
-	}
-	
-	public void init()
-	{
-		
-		if(dbExists){
-			frame.setFont(font);
-			frame.openClient();
-			frame.revalidate();
-			frame.pack();
-		} 
 
 		load.addActionListener(new ActionListener()
 		{
@@ -96,7 +86,6 @@ public class LoadPanel extends JPanel
 				}
 				else
 				{
-					//frame.getController().createTables("campaign.db"); 
 					load();
 				}
 			}
@@ -114,7 +103,6 @@ public class LoadPanel extends JPanel
 			
 		if (new File(path + "/click_log.csv").exists() && new File(path + "/impression_log.csv").exists() && new File(path + "/server_log.csv").exists())
 		{
-				
 			startProgressBar();
 			frame.getController().importFiles(path, "campaign.db");
 		}
@@ -123,18 +111,15 @@ public class LoadPanel extends JPanel
 			//JOptionPane.showMessageDialog(panel, "Please select a folder containing: click_log.csv, impression_log.csv and server_log.csv");
 			File folder = chooseFolder();
 			
-				
-			if (folder != null) 
+			while (folder != null) 
 			{
 				path = folder.getAbsolutePath();
-					
+				
 				if (new File(path + "/click_log.csv").exists() && new File(path + "/impression_log.csv").exists() && new File(path + "/server_log.csv").exists())
 				{
-					frame.getController().createTables("campaign.db"); 
-					dbExists = true;
 					startProgressBar();
 					frame.getController().importFiles(path, "campaign.db");
-			
+					break;
 				}
 				else 
 				{
@@ -142,8 +127,7 @@ public class LoadPanel extends JPanel
 					folder = chooseFolder();
 				}
 			}
-		}
-		
+		}		 
 	}
 	
 	public File chooseFolder()
@@ -219,5 +203,13 @@ public class LoadPanel extends JPanel
 		JLabel label = new JLabel("You tried to import the directory " + dName + " which didn't have the correct log files in it.\n Please select another folder.");
 		label.setFont(font);
 		JOptionPane.showMessageDialog(this, label, "Incorrect File Selected", JOptionPane.WARNING_MESSAGE);
+	}
+
+	public JPanel getPanel() {
+		return panel;
+	}
+
+	public void setPanel(JPanel panel) {
+		this.panel = panel;
 	}
 }

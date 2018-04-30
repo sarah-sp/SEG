@@ -17,7 +17,6 @@ import java.sql.Statement;
 import java.text.DecimalFormat;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -201,8 +200,8 @@ public class CompareOPanel extends JPanel
             double totalCost = (impressionCost + clickCost)/100;
             double totalCostb = (impressionCostb + clickCostb)/100;
 
-            data[5][1] = "ï¿½"+ df2.format(totalCost);
-            data[5][2] = "ï¿½"+ df2.format(totalCostb);
+            data[5][1] = "£"+ df2.format(totalCost);
+            data[5][2] = "£"+ df2.format(totalCostb);
 
     		double ctr = Double.parseDouble(data[1][1].toString()) / Double.parseDouble(data[0][1].toString());
     		double ctrb = Double.parseDouble(data[1][2].toString()) / Double.parseDouble(data[0][2].toString());
@@ -213,20 +212,20 @@ public class CompareOPanel extends JPanel
             double cpa = totalCost/Double.parseDouble(data[4][1].toString());
             double cpab = totalCostb/Double.parseDouble(data[4][2].toString());
 
-            data[7][1] = "ï¿½"+ df2.format(cpa);
-            data[7][2] = "ï¿½"+ df2.format(cpab);
+            data[7][1] = "£"+ df2.format(cpa);
+            data[7][2] = "£"+ df2.format(cpab);
             
             double cpc = totalCost/Double.parseDouble(data[1][1].toString());
             double cpcb = totalCostb/Double.parseDouble(data[1][2].toString());
             
-            data[8][1] = "ï¿½"+ df2.format(cpc);
-            data[8][2] = "ï¿½"+ df2.format(cpcb);
+            data[8][1] = "£"+ df2.format(cpc);
+            data[8][2] = "£"+ df2.format(cpcb);
             
             double cpm = totalCost/(Double.parseDouble(data[0][1].toString())/1000);
             double cpmb = totalCostb/(Double.parseDouble(data[0][2].toString())/1000);
 
-            data[9][1] = "ï¿½"+ df2.format(cpm);
-            data[9][2] = "ï¿½"+ df2.format(cpmb);
+            data[9][1] = "£"+ df2.format(cpm);
+            data[9][2] = "£"+ df2.format(cpmb);
             
             double bounceRate = Double.parseDouble(data[3][1].toString())/(Double.parseDouble(data[1][1].toString()));
             double bounceRateb = Double.parseDouble(data[3][2].toString())/(Double.parseDouble(data[1][2].toString()));
@@ -290,14 +289,6 @@ public class CompareOPanel extends JPanel
 
 		column1.setPreferredWidth(900);
 		column2.setPreferredWidth(400);
-		column3.setPreferredWidth(400);
-		
-//		table.getCellRenderer(1, 1).getTableCellRendererComponent(table, data[1][1], false, false, 1, 1).setBackground(Color.RED);
-//		
-//		DefaultTableCellRenderer defRender = (DefaultTableCellRenderer) table.getCellRenderer(1, 1);
-//		Component cellRenderer = defRender.getTableCellRendererComponent(table, data[1][1], false, false, 1, 1);
-//		cellRenderer.setBackground(Color.blue);
-		
-		
+		column3.setPreferredWidth(400);		
 	}
 }
