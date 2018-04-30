@@ -62,6 +62,7 @@ public class LoadPanel extends JPanel
 		
 		setBorder(new EmptyBorder(15, 15, 15, 15));
 		setBackground(Theme.ACTIVE_BG);
+		frame.setLocationRelativeTo(null);
 		add(centralPanel);
 
 		UIManager.put("OptionPane.minimumSize", new Dimension(300,150));
@@ -78,12 +79,6 @@ public class LoadPanel extends JPanel
 	public void init()
 	{
 		
-		if(dbExists){
-			frame.setFont(font);
-			frame.openClient();
-			frame.revalidate();
-			frame.pack();
-		} 
 
 		load.addActionListener(new ActionListener()
 		{

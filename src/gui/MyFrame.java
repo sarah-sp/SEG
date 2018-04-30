@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 
@@ -54,6 +55,10 @@ public class MyFrame extends JFrame
 		} catch (IOException|FontFormatException e) {
 		     e.printStackTrace();
 		}
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+
 
 	}
 	
@@ -86,21 +91,28 @@ public class MyFrame extends JFrame
 		
 		JScrollPane jsp = new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		setContentPane(jsp);
-	
-		JPanel logoPanel = new JPanel();
-		logoPanel.setLayout(new BorderLayout());
-		logoPanel.setBackground(Theme.ACTIVE_BG);
-		
-		JLabel logo = new JLabel("Dash", JLabel.CENTER);
-		logo.setFont(font);
-		
-		logoPanel.add(logo, BorderLayout.CENTER);
-		
-		loadPanel = new LoadPanel(this, contentPane);
 
-		contentPane.add(logoPanel);
-		contentPane.add(loadPanel);
-		contentPane.add(Box.createVerticalStrut(50));
+		boolean dbExists = new File("database/campaign.db").exists();
+		
+		if(!dbExists) {
+			JPanel logoPanel = new JPanel();
+			logoPanel.setLayout(new BorderLayout());
+			logoPanel.setBackground(Theme.ACTIVE_BG);
+			
+			JLabel logo = new JLabel("Dash", JLabel.CENTER);
+			logo.setFont(font);
+			
+			logoPanel.add(logo, BorderLayout.CENTER);
+			
+			loadPanel = new LoadPanel(this, contentPane);
+			
+			contentPane.add(logoPanel);
+			contentPane.add(loadPanel);
+			contentPane.add(Box.createVerticalStrut(50));	
+		} else {
+			this.setFont(font);
+			this.openClient();
+		}
 		
 		setIconImage(new ImageIcon("img/icon.png").getImage());
 		setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
