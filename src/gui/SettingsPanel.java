@@ -347,7 +347,10 @@ public class SettingsPanel extends JPanel implements BorderInterface
 				textHolder.add(aboutLabel, c);
 				
 				JScrollPane scroll = new JScrollPane(textHolder, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	
+				scroll.getVerticalScrollBar().setUnitIncrement(20);
+				scroll.getHorizontalScrollBar().setUnitIncrement(20);
+
+				
 				centrePanel.add(scroll);
 				centrePanel.revalidate();
 				centrePanel.repaint();
