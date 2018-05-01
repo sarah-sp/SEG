@@ -108,6 +108,7 @@ public class ComparePanel extends JPanel implements BorderInterface
 		update.setPreferredSize(new Dimension(120,30));
 		update.setFontSize(13);
 		
+		
 		campaign = new JComboBox<>();
 		for(String s : cStorage.getCampaigns())
 		{
@@ -178,6 +179,10 @@ public class ComparePanel extends JPanel implements BorderInterface
 			updateGraph(lineChart);
 		}
 		
+		if(metrics.getSelectedItem().equals("None")){
+			update.setEnabled(false);
+		}
+		
 		addCampaign.addMouseListener(new MouseAdapter()
 		{
 			@Override
@@ -200,14 +205,10 @@ public class ComparePanel extends JPanel implements BorderInterface
 
 							
 							dbExists = frame.getController().createDatabase(dbName + ".db");
-//							if(new File("database/"+dbName+".db").exists()){
-//								dbName = (String) JOptionPane.showInputDialog(frame, "Campaign Name Taken. Enter a new one:", "Name Campaign", JOptionPane.PLAIN_MESSAGE, null, null, "name");
-//
-//							} else{
-//								dbExists = frame.getController().createDatabase(dbName + ".db");
-//							}
 
 							dbExists = frame.getController().createDatabase(dbName + ".db");
+							
+							campaign.setSelectedItem(dbName+".db");
 
 						}
 						startProgressBar();
@@ -238,7 +239,8 @@ public class ComparePanel extends JPanel implements BorderInterface
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "Comparison Campaign Updated But No Graph Generated.");
+					
+					//JOptionPane.showMessageDialog(frame, "Comparison Campaign Updated But No Graph Generated.");
 				}
 			}
 		});
