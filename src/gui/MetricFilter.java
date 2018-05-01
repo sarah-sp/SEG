@@ -36,14 +36,15 @@ public class MetricFilter extends JPanel implements BorderInterface
     public JComboBox<String> selectAge;
     public JComboBox<String> selectIncome;
     public JComboBox<String> selectContext;
-    protected JTextField startDate;
-    protected JTextField endDate;
+    public JTextField startDate;
+    public JTextField endDate;
     private JLabel label, selectMetricLabel, startLabel, endLabel,refineLabel, genderLabel, ageLabel, incomeLabel, contextLabel;
     private FilterStorage storage;
     private String value = null;
     private int filterIndex;
     private CustomButton remove;
     private JPanel topPanel, contentPanel, metricPanel, datePanel, refinePanel;
+    private String query;
 
 	public MetricFilter(FilterStorage storage)
 	{	
@@ -274,5 +275,23 @@ public class MetricFilter extends JPanel implements BorderInterface
 	public int getFilterIndex()
 	{
 		return filterIndex;
+	}
+	
+	public void setQuery(String query)
+	{
+		this.query = query;
+	}
+	
+	public String getQuery()
+	{
+		return query;
+	}
+	
+	public String getFilterDetails()
+	{
+		String labelText = filterIndex + " - " + selectGender.getSelectedItem().toString() + " " + selectAge.getSelectedItem().toString() + " " + 
+						   selectIncome.getSelectedItem().toString() + " " + selectContext.getSelectedItem().toString();
+		
+		return labelText;
 	}
 }

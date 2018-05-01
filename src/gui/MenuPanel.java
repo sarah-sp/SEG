@@ -56,7 +56,7 @@ public class MenuPanel extends JPanel
 		font = new Font("Courier", Font.BOLD, 20);
 		
 		metricPanel = new MetricPanel(frame, contentPanel, fStorage);
-		graphPanel = new GraphPanel(frame, contentPanel);
+		graphPanel = new GraphPanel(frame, contentPanel, fStorage, cStorage);
 		comparePanel = new ComparePanel(frame, contentPanel, cStorage);
 		settingsPanel = new SettingsPanel(frame, contentPanel);
 		

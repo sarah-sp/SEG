@@ -93,7 +93,7 @@ public class MetricTable extends JTable
 		data[5] = filter.selectAge.getSelectedItem();
 		data[6] = filter.selectIncome.getSelectedItem();
 		data[7] = filter.selectContext.getSelectedItem();
-		data[8] = filter.getValue() == null ? getResult(filter) : filter.getValue();
+		data[8] = filter.getValue() == null ? frame.getController().getFilteredMetricValue(filter) : filter.getValue();
 		//If filter stays the same then value is stored so query doesn't have to be run again
 		
 		tableModel.addRow(data);

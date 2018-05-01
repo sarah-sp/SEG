@@ -1,7 +1,10 @@
 package controller;
+import java.sql.ResultSet;
+
 import javax.swing.SwingUtilities;
 import org.sqlite.SQLiteConfig;
 
+import gui.MetricFilter;
 import gui.MyFrame;
 import model.Database;
 
@@ -69,5 +72,18 @@ public class Controller
 		return dbModel.getSQLiteConfig();
 	}
 	
+	public ResultSet getClickCostDistribution()
+	{
+		return dbModel.getClickCostDistribution();
+	}
 	
+	public ResultSet getTimeGranularityResultSet(String query, String timeGranularity)
+	{
+		return dbModel.getTimeGranularityResultSet(query, timeGranularity);
+	}
+	
+	public String getFilteredMetricValue(MetricFilter filter)
+	{	
+		return dbModel.getQueryResult(filter);
+	}
 }
