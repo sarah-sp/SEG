@@ -191,7 +191,7 @@ public class MenuPanel extends JPanel
 		
 		metrics.setToolTipText("Filter your metrics");
 		graphs.setToolTipText("Filter your graphs");
-		compare.setToolTipText("Select campaigns to compare");
+		compare.setToolTipText("Select campaigns for comparison");
 		settings.setToolTipText("Modify your settings");	
 		
 		metricsPanel.setName("metricsPanel");

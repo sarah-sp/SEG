@@ -79,20 +79,28 @@ public class MetricFilter extends JPanel implements BorderInterface
 		
 		selectMetricLabel = new JLabel("<html><u><b>Select Metric:</b></u></html>");
 		selectMetricLabel.setForeground(Theme.ACTIVE_FG);
+		
 		startLabel = new JLabel("<html><u><b>From Date (Year/Month/Date):</b></u></html>");
 		startLabel.setForeground(Theme.ACTIVE_FG);
-		endLabel = new JLabel("<html><u><b>To Date (Year/Month/Date)):</b></u></html>");
+		
+		endLabel = new JLabel("<html><u><b>To Date (Year/Month/Date):</b></u></html>");
 		endLabel.setForeground(Theme.ACTIVE_FG);
+		
 		refineLabel = new JLabel("<html><u><b>Refine By:</b></u></html>");
 		refineLabel.setForeground(Theme.ACTIVE_FG);
+		
 		genderLabel = new JLabel("Gender:");
 		genderLabel.setForeground(Theme.ACTIVE_FG);
+		
 		ageLabel = new JLabel("Age Range:");
 		ageLabel.setForeground(Theme.ACTIVE_FG);
+		
 		incomeLabel = new JLabel("Income:");
 		incomeLabel.setForeground(Theme.ACTIVE_FG);
+		
 		contextLabel = new JLabel("Context:");
 		contextLabel.setForeground(Theme.ACTIVE_FG);
+		
 		label = new JLabel("Metric No. " + filterIndex);
 		label.setForeground(Theme.ACTIVE_FG);
 		
@@ -112,7 +120,6 @@ public class MetricFilter extends JPanel implements BorderInterface
 				storage.getMetricFilterPanel().updateMetricPanel();
 				storage.getMetricTablePanel().updateTableRecords();
 				storage.getFrame().getMainPanel().getMenuPanel().getGrahpPanel().updateFilterList();
-			
 			}	
 		});
 				
@@ -120,8 +127,12 @@ public class MetricFilter extends JPanel implements BorderInterface
 		metricsBox.setForeground(Theme.ACTIVE_FG);
 	    startDate = new JTextField(storage.getStartDate().substring(0,10));
 	    startDate.setForeground(Theme.ACTIVE_FG);
+	    startDate.setHorizontalAlignment(JTextField.CENTER);
+	    startDate.setFont(metricsBox.getFont());    
 	    endDate = new JTextField(storage.getEndDate().substring(0,10));
+	    endDate.setHorizontalAlignment(JTextField.CENTER);
 	    endDate.setForeground(Theme.ACTIVE_FG);
+	    endDate.setFont(metricsBox.getFont());
 	    selectGender = new JComboBox<String>(gender);
 	    selectGender.setForeground(Theme.ACTIVE_FG);
 	    selectAge = new JComboBox<String>(age);

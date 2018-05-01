@@ -275,7 +275,6 @@ public class Database
 		
 		decimalPrecision2.setRoundingMode(RoundingMode.HALF_UP);
 		decimalPrecision3.setRoundingMode(RoundingMode.HALF_UP);
-		System.out.println(query);
 
 		try
 		{
@@ -440,7 +439,6 @@ public class Database
 		}
 		
 		query = stringBuilder.toString();
-		System.out.println(query);
 				
 		try 
 		{

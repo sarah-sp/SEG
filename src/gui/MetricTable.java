@@ -35,20 +35,14 @@ public class MetricTable extends JTable
 	private DecimalFormat df2;
 	private DefaultTableModel tableModel;
 	private DefaultTableCellRenderer cellRenderer;
-	private SimpleDateFormat dateFormat;
 	private Color hover;
 
 	public MetricTable(MyFrame frame)
 	{	
 		this.frame = frame;
 		data = new Object[9];
-		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		configure();
 		hover = Theme.ACTIVE_HOVER;
-		
-//		JTableHeader header = this.getTableHeader();
-//	    header.setBackground(Color.cyan);
-//	    header.setForeground(Color.blue);
 	}
 	
 	public void setHoverColor(Color c) {
@@ -82,8 +76,6 @@ public class MetricTable extends JTable
 	{			
 		String startDate = filter.startDate.getText();
 		String endDate = filter.endDate.getText();
-		
-		System.out.println(startDate);
 		
 		data[0] = filter.getFilterIndex();
 		data[1] = filter.metricsBox.getSelectedItem();

@@ -42,6 +42,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -85,7 +86,7 @@ public class GraphPanel extends JPanel
 	private JPanel chartHolder;
 	private JPanel chartButtonsPanel;
 	private CustomButton add, remove, group;
-	private JButton compare,create,save;
+	private JButton compare, create, save, print;
 	private JComboBox<String> metrics, chartTypeBox, timeGranularityBox, chartNames; 
 	private JList<Integer> filters;
 	private JTextPane textPane;
@@ -237,9 +238,8 @@ public class GraphPanel extends JPanel
 		
 		JSplitPane splitPane= new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPaneFilters, scrollPaneDetails);
 		splitPane.setForeground(Theme.ACTIVE_FG);
-		//splitPane.setBorder(new LineBorder(Color.red, 3));
 		splitPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-		splitPane.setDividerLocation(40);
+		splitPane.setDividerLocation(30);
 		
 		JPanel splitPanePanel = new JPanel();
 		customisePanel(splitPanePanel, "Metric Filters");
@@ -300,9 +300,18 @@ public class GraphPanel extends JPanel
 				textPane.setText("");
 
 				int numFilters = filters.getSelectedValuesList().size();
-	
-				if (numFilters > 1)
+				String selection = "";
+				
+				
+				if (numFilters == 1)
+				{
+					displayFilterDetails(filters.getSelectedValue());
+					add.setEnabled(true);
+					group.setEnabled(false);
+				}
+				else if (numFilters > 1)
 				{	
+					
 					for (Integer filterID : filters.getSelectedValuesList())
 					{
 						displayFilterDetails(filterID);
@@ -323,13 +332,9 @@ public class GraphPanel extends JPanel
 					
 					group.setEnabled(true);
 				}
-				else if (numFilters == 1)
-				{
-					displayFilterDetails(filters.getSelectedValue());
-					add.setEnabled(true);
-					group.setEnabled(false);
-				}
 				
+				selection = buildStringForRemoval();
+				remove.setEnabled(elementsField.getText().contains(selection));
 				textPane.setCaretPosition(0);
 			}	
 		});
@@ -369,7 +374,7 @@ public class GraphPanel extends JPanel
 		filterButtonsPanel.setBackground(Theme.ACTIVE_BG);
 		
 		add = new CustomButton("Add");
-		group = new CustomButton("Add As Group");
+		group = new CustomButton("Add Group");
 		remove = new CustomButton("Remove");
 		
 		add.setBackground(Theme.ACTIVE_BG);
@@ -380,9 +385,9 @@ public class GraphPanel extends JPanel
 		group.setPreferredSize(new Dimension(80,30));
 		remove.setPreferredSize(new Dimension(80,30));
 	
-		add.setFontSize(10);
-		group.setFontSize(10);
-		remove.setFontSize(10);
+		add.setFontSize(12);
+		group.setFontSize(12);
+		remove.setFontSize(12);
 		
 		add.setFocusPainted(false);
 		group.setFocusPainted(false);
@@ -437,16 +442,13 @@ public class GraphPanel extends JPanel
 					}
 					else
 					{
-						group += ") ";
+						group += ")";
 					}
 				}
 				
 				elementsField.setText((elementsField.getText() + " " + group).trim());
 				create.setEnabled(true);
 				remove.setEnabled(true);
-
-				//EASY FIX
-				remove.setEnabled(elementsField.getText().contains(buildStringForRemoval()));
 
 			}	
 		});
@@ -456,23 +458,28 @@ public class GraphPanel extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{	
-				removeFilterSelection();
+				
+				String selection = buildStringForRemoval();
+				
+				removeFilterSelection(selection);
 				
 				if (elementsField.getText().split(" ").length <= 1 || elementsField.getText().split("\\)").length <= 1)
 				{
 					showAllowedTimeGranularity();
 				}
-			}	
+				
+				remove.setEnabled(elementsField.getText().contains(selection	));
+				
+			}
 		});
 	}
 	
-	public void removeFilterSelection()
+	public void removeFilterSelection(String selection)
 	{		
 		if (filters.getSelectedValuesList().size() > 0)
 		{	
-			String toBeRemoved = buildStringForRemoval();
 			
-			String updated = elementsField.getText().replaceFirst(toBeRemoved, "").trim();
+			String updated = elementsField.getText().replaceFirst(selection, "");
 			
 			StringBuilder stringBuilder = new StringBuilder();
 					
@@ -482,29 +489,31 @@ public class GraphPanel extends JPanel
 			}
 			
 			elementsField.setText(stringBuilder.toString().trim());
-			
-			remove.setEnabled(elementsField.getText().contains(toBeRemoved));
 		}
 	}
 	
-	public String buildStringForRemoval()
+	private String buildStringForRemoval() 
 	{
-		String toBeRemoved = "";
+		String selection = "";
 		
-		for (Integer id : filters.getSelectedValuesList())
+		int selectionSize = filters.getSelectedValuesList().size();
+		
+		if (selectionSize == 1)
 		{
-			toBeRemoved += id + " ";
+			selection = String.valueOf(filters.getSelectedValue());
 		}
-		
-		toBeRemoved = toBeRemoved.trim();
-		
-		if (filters.getSelectedValuesList().size() > 1)
+		else if (selectionSize > 1)
 		{
-			toBeRemoved = "\\(" + toBeRemoved + "\\)";
+			for (Integer id : filters.getSelectedValuesList())
+			{
+				selection += id + " ";
+			}
+			
+			selection = "(" + selection.trim() + ")";
+			
 		}
-		
-		return toBeRemoved;
-	}
+		return selection;
+	}	
 	
 	public String removeSingleElementGroups(String idList)
 	{
@@ -577,6 +586,10 @@ public class GraphPanel extends JPanel
 	
 	public void initChartButtons()
 	{
+		UIDefaults defaults = UIManager.getLookAndFeelDefaults();
+		defaults.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
+		
+		defaults.put("Button.background", Color.WHITE);
 		chartPanelList = new ArrayList<>();
 		
 		chartButtonsPanel.setLayout(new BoxLayout(chartButtonsPanel, BoxLayout.X_AXIS));
@@ -617,7 +630,7 @@ public class GraphPanel extends JPanel
 		
 		JPanel legendPanel = new JPanel();
 		customisePanel(legendPanel, "Include Legend");
-		legendPanel.setPreferredSize(new Dimension(110, legendPanel.getHeight()));
+		legendPanel.setPreferredSize(new Dimension(150, legendPanel.getHeight()));
 		
 		ButtonGroup legendGroup = new ButtonGroup();
 		
@@ -654,17 +667,18 @@ public class GraphPanel extends JPanel
 		save = new JButton("Save As");
 		create = new JButton("Create Chart");
 		compare = new JButton("Compare To");
+		print = new JButton("Print Chart");
 		JButton reset = new JButton("Default");
-		JButton print = new JButton("Print");
-
 		
 		create.setEnabled(true);
 		compare.setEnabled(false);
+		print.setEnabled(false);
 		
 		create.setFocusPainted(false);
 		compare.setFocusable(false);
 		save.setFocusPainted(false);
 		reset.setFocusPainted(false);
+		print.setFocusPainted(false);
 
 		create.setBackground(Theme.ACTIVE_BG);
 		compare.setBackground(Theme.ACTIVE_BG);
@@ -730,10 +744,7 @@ public class GraphPanel extends JPanel
 			public void itemStateChanged(ItemEvent ie) 
 			{
 				chartHolder.removeAll();
-				if(chartNames.getSelectedIndex() != - 1)
-				{
-					chartHolder.add(chartPanelList.get(chartNames.getSelectedIndex()));
-				}
+				chartHolder.add(chartPanelList.get(chartNames.getSelectedIndex()));
 				chartHolder.revalidate();
 				chartHolder.repaint();
 			}
@@ -781,6 +792,16 @@ public class GraphPanel extends JPanel
 				setDefaultSettings();
 			}
 		});
+		
+		print.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				chartPanelList.get(chartNames.getSelectedIndex()).createChartPrintJob();
+			}
+		});
 	}
 	
 	
@@ -805,7 +826,7 @@ public class GraphPanel extends JPanel
 			
 				String[] elements = elementsField.getText().split(" ");
 				
-				if (elements.length <= 1)
+				if (elements.length <= 1 && metrics.getSelectedIndex() > 0 && metrics.getSelectedIndex() <=5)
 				{
 					timeGranularityBox.addItem(options[1]);
 					timeGranularityBox.addItem(options[2]);
@@ -837,7 +858,7 @@ public class GraphPanel extends JPanel
 		try
 		{
 			int result = JOptionPane.showOptionDialog(null, panel, "Enter chart name",
-            JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, new ImageIcon("img/name.png"), options, null);
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, new ImageIcon("img/name.png"), options, null);;
 			
 			String title = null;
 			
@@ -880,8 +901,10 @@ public class GraphPanel extends JPanel
 				elementsField.setText("");
 				add.setEnabled(false);
 				remove.setEnabled(false);
-				save.setEnabled(true);
 				create.setEnabled(false);
+				save.setEnabled(true);
+				print.setEnabled(true);
+				
 			}
 			
 			if (chartNames.getModel().getSize() > 1)
@@ -1116,7 +1139,7 @@ public class GraphPanel extends JPanel
 			{
 				String query = metricFilters.get(Integer.parseInt(elements[i])).getQuery();
 				ResultSet resultSet = frame.getController().getTimeGranularityResultSet(query, timeGranularityBox.getSelectedItem().toString());
-				System.out.println(resultSet);
+				
 				while (resultSet.next())
 				{					
 					categorySet.addValue(resultSet.getDouble(2), elements[i], resultSet.getString(1));
@@ -1277,8 +1300,7 @@ public class GraphPanel extends JPanel
 				MetricFilter current = metricFilters.get(Integer.parseInt(matcher.group()));
 				String value = current.getValue();
 				
-				int val = value.contains("ï¿½") ? Integer.parseInt(value.substring(1)) : Integer.parseInt(value);
-				System.out.println(val);
+				double val = value.contains("£") ? Double.parseDouble(value.substring(1)) : Double.parseDouble(value);
 				categorySet.addValue(val, String.valueOf(matches), stacked == true? "" : current.getFilterDetails());
 			}
 			else
@@ -1333,40 +1355,90 @@ public class GraphPanel extends JPanel
 	}
 	
 	public void fillTimeGranularityXYSeriesCollection(XYSeriesCollection xySeriesColl, SymbolAxis xAxis, String xAxisTitle)
-	{
+	{	
 		Map<Integer, MetricFilter> metricFilters = frame.fStorage.getFilters();
-		String[] elements = elementsField.getText().split(" ");
+		Pattern pattern = Pattern.compile("\\d+|(\\((\\d+\\s)+\\d+\\))+");
+		Matcher matcher = pattern.matcher(elementsField.getText());
+		
+		int seriesNum = 0;
+		
 		int numLabels = 0;
 		
-		for (int i=0; i < elements.length; i++)
+		while (matcher.find())
 		{
-			XYSeries xySeries = new XYSeries(i);
+			seriesNum++;
 			
-			try 
-			{
-				String query = metricFilters.get(Integer.parseInt(elements[i])).getQuery();
+			XYSeries xySeries = null;
+			
+			if (!matcher.group().contains("("))
+			{	
+				MetricFilter current = metricFilters.get(Integer.parseInt(matcher.group()));
+				String query = metricFilters.get(Integer.parseInt(matcher.group())).getQuery();
+				xySeries = new XYSeries(matcher.find());
+				
 				ResultSet resultSet = frame.getController().getTimeGranularityResultSet(query, timeGranularityBox.getSelectedItem().toString());
-					
-				while (resultSet.next())
-				{					
-					xySeries.add(resultSet.getInt(1), resultSet.getInt(2));
-					if (i == 0)
-					{
-						numLabels++;
+				
+				try 
+				{
+					while (resultSet.next())
+					{					
+						xySeries.add(resultSet.getInt(1), resultSet.getInt(2));
+						
+						if (seriesNum == 1)
+						{
+							numLabels++;
+						}
 					}
+				} 
+				catch (SQLException sqle) 
+				{
+					sqle.printStackTrace();
+				}
+			}
+			else
+			{
+				String[] elements = matcher.group().substring(1, matcher.group().length() - 1).split(" ");
+				String labelText = "Group ID's - ";
+				
+				List<ResultSet> resultSetList = new ArrayList<>();
+				
+				for(int i=0; i < elements.length; i++)
+				{
+					MetricFilter current = metricFilters.get(Integer.parseInt(elements[i]));
+					labelText += current.getFilterIndex() + ", ";
+					resultSetList.add(frame.getController().getTimeGranularityResultSet(current.getQuery(), timeGranularityBox.getSelectedItem().toString()));
 				}
 				
-				xySeriesColl.addSeries(xySeries);
-			} 
-			catch (SQLException sqle) 
-			{
-				sqle.printStackTrace();
+				labelText = labelText.substring(0, labelText.length() - 2);
+				
+				xySeries = new XYSeries(labelText);
+				
+				try 
+				{
+					while (resultSetList.get(0).next())
+					{
+						int sum = 0;
+						
+						for(int i=0; i < resultSetList.size(); i++)
+						{
+							sum += resultSetList.get(i).getInt(2);
+						}
+						
+						xySeries.add(resultSetList.get(0).getInt(1), sum);
+					}
+				} 
+				catch (SQLException sqle) 
+				{
+					sqle.printStackTrace();
+				}
 			}
+			
+			xySeriesColl.addSeries(xySeries);
 		}
 		
 		xAxisTitle = setXAxisTitle(xAxisTitle);
 		xAxis= createCustomSymbolAxis(xAxisTitle, numLabels);
-	}
+	}	
 	
 	public SymbolAxis createCustomSymbolAxis(String xAxisTitle, int numLables) 
 	{

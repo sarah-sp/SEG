@@ -60,12 +60,14 @@ public class MetricTablePanel extends JPanel implements BorderInterface//POTENTI
 		setBackground(Color.cyan);
 	}
 	
-	public void refreshBorder(Color fg){
+	public void refreshBorder(Color fg)
+	{
 		metricTable.setBorder(BorderFactory.createLineBorder(fg));
 		metricTable.getTableHeader().setBorder(BorderFactory.createLineBorder(fg));
 	}
 	
-	public void changeTheme(Container con, Color bg, Color fg, Color hoverColor){
+	public void changeTheme(Container con, Color bg, Color fg, Color hoverColor)
+	{
 		this.setBackground(bg);
 		
 		for(Component c : con.getComponents()) {
@@ -73,7 +75,8 @@ public class MetricTablePanel extends JPanel implements BorderInterface//POTENTI
 			c.setBackground(bg);
 			c.setForeground(fg);
 			
-			if(c instanceof Container) {
+			if (c instanceof Container) 
+			{
 				Container cont = (Container) c;
 				changeTheme(cont,bg,fg,hoverColor);
 			}
