@@ -33,7 +33,7 @@ public class Database
 	public void setController(Controller controller)
 	{
 		this.controller = controller;
-		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
 		configureSQLite();
 	}
 	
@@ -471,5 +471,13 @@ public class Database
 		}
 		
 		return clicks;
+	}
+
+	public SimpleDateFormat getDateFormat() {
+		return dateFormat;
+	}
+
+	public void setDateFormat(SimpleDateFormat dateFormat) {
+		this.dateFormat = dateFormat;
 	}
 }

@@ -9,8 +9,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.io.File;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -23,6 +21,7 @@ import javax.swing.JCheckBox;
 
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -54,9 +53,6 @@ public class SettingsPanel extends JPanel implements BorderInterface
 		this.setBackground(Theme.ACTIVE_BG);
 		this.setBorder(new EmptyBorder(15,15,15,15));
 		
-		/*
-		 * panels that hold the buttons on the left
-		 */
 		bounceDefPanel = new JPanel();
 		themes = new JPanel();
 		docPanel = new JPanel();
@@ -83,11 +79,6 @@ public class SettingsPanel extends JPanel implements BorderInterface
 		
 		centrePanel.setBackground(Theme.ACTIVE_BG);
 		appearancePanel.setBackground(Theme.ACTIVE_BG);
-		
-
-		/*
-		 * buttons
-		 */
 
 		bounceDef = new CustomButton("Bounce Rate");
 		database = new CustomButton("Database");
@@ -95,49 +86,62 @@ public class SettingsPanel extends JPanel implements BorderInterface
 		documentation = new CustomButton("Documentation");
 		about = new CustomButton("About");
 		
-		database.addActionListener(new ActionListener(){
+		JPanel fillerPanel = new JPanel(new GridBagLayout());
+		JPanel filler = new JPanel();
+		filler.setBackground(Theme.ACTIVE_BG);
+		fillerPanel.setBackground(Theme.ACTIVE_BG);
+		
+		GridBagConstraints c = new GridBagConstraints();
 
+		fillFiller(fillerPanel, filler, c);
+		
+		database.addActionListener(new ActionListener()
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
 				centrePanel.removeAll();
+				centrePanel.setLayout(new BorderLayout());
+				fillerPanel.removeAll();
+				fillFiller(fillerPanel, filler, c);
 				
-				centrePanel.setLayout(new BoxLayout(centrePanel, BoxLayout.X_AXIS));
-				centrePanel.setAlignmentX(Component.TOP_ALIGNMENT);
+				JPanel fillerCentre = new JPanel();
+				fillerCentre.setBackground(Theme.ACTIVE_BG);
 				
-				JLabel del = new JLabel("Delete current campaign upon closing the application");
+				JLabel del = new JLabel("Tick/untick checkbox to delete current campaign upon closing the application");
 				del.setForeground(Theme.ACTIVE_FG);
 				del.setFont(new Font("Courier", Font.BOLD, 20));
 					
 				JCheckBox delete = new JCheckBox();
 				delete.setSelected(MyFrame.DELETE_DB);
-				delete.addActionListener(new ActionListener(){
-		
+				delete.setBackground(Theme.ACTIVE_BG);
+				delete.addActionListener(new ActionListener()
+				{
 					@Override
-					public void actionPerformed(ActionEvent e) {
-						if(delete.isSelected()){
-
+					public void actionPerformed(ActionEvent e) 
+					{
+						if(delete.isSelected())
+						{
 							MyFrame.DELETE_DB = true;
 							SettingsOPanel.DELETE_DB = "Will be deleted";
-						} else {
+							JOptionPane.showMessageDialog(frame, "Database will be deleted upon exit.");
+
+						} else 
+						{
 							SettingsOPanel.DELETE_DB = "Will be saved";
 							MyFrame.DELETE_DB = false;
+							JOptionPane.showMessageDialog(frame, "Database will NOT be deleted upon exit.");
 						}
-						
 					}
-					
 				});
 				
-				centrePanel.add(del);
-				centrePanel.add(delete);
-//				frame.getLoadPanel().load();
-//				frame.getLoadPanel().startProgressBar();
-//				frame.getController().
-				
+				fillerCentre.add(del, c);
+				fillerCentre.add(delete, c);
+				fillerPanel.add(fillerCentre, c);
+				centrePanel.add(fillerPanel, BorderLayout.CENTER);
 				centrePanel.revalidate();
 				centrePanel.repaint();
-				
 			}
-			
 		});
 		bounceDef.addActionListener( new ActionListener() {
 
@@ -147,6 +151,9 @@ public class SettingsPanel extends JPanel implements BorderInterface
 				centrePanel.removeAll();
 				centrePanel.setLayout(new BorderLayout());
 				bounceDef.setBackground(Theme.ACTIVE_HOVER);
+				
+				fillerPanel.removeAll();
+				fillFiller(fillerPanel, filler, c);
 				
 				JLabel heading = new JLabel("Bounce Rate: ");
 				heading.setForeground(Theme.ACTIVE_FG);
@@ -175,7 +182,8 @@ public class SettingsPanel extends JPanel implements BorderInterface
 				bounceDefPanel.add(Box.createVerticalStrut(15));
 			    bounceDefPanel.add(brPageNum);			    
 
-			    centrePanel.add(bounceDefPanel);
+			    fillerPanel.add(bounceDefPanel,c);
+			    centrePanel.add(fillerPanel);
 				    
 			    brPageNum.addActionListener(new ActionListener() 
 				{
@@ -211,6 +219,9 @@ public class SettingsPanel extends JPanel implements BorderInterface
 				centrePanel.removeAll();
 				colours.removeAll();
 				appearancePanel.removeAll();
+				
+				fillerPanel.removeAll();
+				fillFiller(fillerPanel, filler, c);
 				
 				centrePanel.setLayout(new BorderLayout());
 				
@@ -306,7 +317,8 @@ public class SettingsPanel extends JPanel implements BorderInterface
 				appearancePanel.add(Box.createVerticalStrut(15));
 				appearancePanel.add(colours);
 				
-				centrePanel.add(appearancePanel, BorderLayout.CENTER);
+				fillerPanel.add(appearancePanel, c);
+				centrePanel.add(fillerPanel, BorderLayout.CENTER);
 				centrePanel.revalidate();
 				centrePanel.repaint();
 				centrePanel.setBackground(Theme.ACTIVE_BG);
@@ -412,6 +424,30 @@ public class SettingsPanel extends JPanel implements BorderInterface
 		this.add(centrePanel, BorderLayout.CENTER);
 		this.add(topPanel, BorderLayout.NORTH);
 
+	}
+
+
+
+
+	private void fillFiller(JPanel fillerPanel, JPanel filler, GridBagConstraints c) 
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j < 2; j++)
+			{
+				if (i != 1 && j != 1)
+				{
+					c.gridx = i;
+					c.gridy = j;
+					c.fill = GridBagConstraints.BOTH;
+					fillerPanel.add(filler, c);
+				}
+			}
+		}
+		
+		c.gridx = 1;
+		c.gridy = 1;
+		c.fill = GridBagConstraints.BOTH;
 	}
 	
 

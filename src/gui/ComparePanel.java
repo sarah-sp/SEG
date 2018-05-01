@@ -6,8 +6,6 @@ import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
@@ -98,11 +96,7 @@ public class ComparePanel extends JPanel implements BorderInterface
 		String[] granularities = {"Day", "Week", "Month"};
 		metrics = new JComboBox<String>(metricChoices);
 		granularity = new JComboBox<String>(granularities);
-		ImageIcon image1 = new ImageIcon("img/compareCampaigns.png");
-		ImageIcon image2 = new ImageIcon("img/arrowFiller.jpg");
 		ImageIcon exitImage = new ImageIcon("img/arrow.jpg");
-		JLabel logo1 = new JLabel("", image1, JLabel.CENTER);
-		JLabel logo2 = new JLabel("", image2, JLabel.CENTER);
 		JLabel exitLabel = new JLabel("", exitImage, JLabel.CENTER);
 		
 		addCampaign.setPreferredSize(new Dimension(120,30));
@@ -117,15 +111,6 @@ public class ComparePanel extends JPanel implements BorderInterface
 		{
 			campaign.addItem(s);
 		}
-		
-				
-
-//		topPanel.setLayout(new BorderLayout());
-//		topPanel.setBackground(Color.WHITE);		
-//		topPanel.add(logo1, BorderLayout.CENTER);
-//		topPanel.add(logo2, BorderLayout.EAST);
-//		topPanel.add(exitLabel, BorderLayout.WEST);
-
 				
 		centralPanel.setBackground(Color.WHITE);
 		
@@ -242,7 +227,6 @@ public class ComparePanel extends JPanel implements BorderInterface
 				}
 				else
 				{
-					
 					JOptionPane.showMessageDialog(frame, "Comparison Campaign Updated But No Graph Generated.");
 				}
 			}
