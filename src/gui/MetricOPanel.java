@@ -97,12 +97,12 @@ public class MetricOPanel extends JPanel
             
             switch (frame.getBounceDef())
             {
-	            case "pages":
+	            case "Pages":
 	            	ResultSet rs4a    = stmt.executeQuery(numberOfBouncesPages);
 	                data[3][1] = rs4a.getInt(1);
 	                break;
 	                
-	            case "time":
+	            case "Time":
 	            	ResultSet rs4b    = stmt.executeQuery(numberOfBouncesTime);
 	            	data[3][1] = rs4b.getInt(1);
 	            	break;

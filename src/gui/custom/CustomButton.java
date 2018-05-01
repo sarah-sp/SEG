@@ -39,12 +39,16 @@ public class CustomButton extends JButton {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				setBackground(hoverColor);	
+				if(isEnabled()){
+					setBackground(hoverColor);	
+				}
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				setBackground(bg);
+				if(isEnabled()){
+					setBackground(bg);
+				}
 			}
 
 			@Override

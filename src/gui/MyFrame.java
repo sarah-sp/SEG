@@ -56,8 +56,8 @@ public class MyFrame extends JFrame
 		     e.printStackTrace();
 		}
 		
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+//		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+//		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
 
 	}
@@ -89,8 +89,8 @@ public class MyFrame extends JFrame
 		contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.PAGE_AXIS));
 		contentPane.setBackground(Theme.ACTIVE_BG);
 
-		JScrollPane jsp = new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		setContentPane(jsp);
+		//JScrollPane jsp = new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		setContentPane(contentPane);
 
 
 		boolean dbExists = new File("database/campaign.db").exists();
@@ -134,7 +134,7 @@ public class MyFrame extends JFrame
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setLocationRelativeTo(null);
 		
-		bounceDef = "time";
+		bounceDef = "Time";
 		fStorage = new FilterStorage(this);
 		cStorage = new CompareStorage();
 		
