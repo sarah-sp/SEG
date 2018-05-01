@@ -6,6 +6,8 @@ import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
@@ -64,6 +66,7 @@ public class ComparePanel extends JPanel implements BorderInterface
 	private JComboBox<String> campaign, metrics, granularity;
 	private JPanel centralPanel;
 	private JFreeChart lineChart;
+	private String dbName;
 	
 	public ComparePanel(MyFrame frame, JPanel panel, CompareStorage cStorage)
 	{
@@ -114,6 +117,7 @@ public class ComparePanel extends JPanel implements BorderInterface
 		{
 			campaign.addItem(s);
 		}
+		
 				
 
 //		topPanel.setLayout(new BorderLayout());
@@ -179,9 +183,7 @@ public class ComparePanel extends JPanel implements BorderInterface
 			updateGraph(lineChart);
 		}
 		
-		if(metrics.getSelectedItem().equals("None")){
-			update.setEnabled(false);
-		}
+
 		
 		addCampaign.addMouseListener(new MouseAdapter()
 		{
@@ -208,12 +210,13 @@ public class ComparePanel extends JPanel implements BorderInterface
 
 							dbExists = frame.getController().createDatabase(dbName + ".db");
 							
-							campaign.setSelectedItem(dbName+".db");
+							
 
 						}
 						startProgressBar();
 						frame.getController().createTables(dbName + ".db");
 						importFiles(path, dbName + ".db");
+						ComparePanel.this.dbName = dbName;
 						break;
 					}
 					else 
@@ -240,7 +243,7 @@ public class ComparePanel extends JPanel implements BorderInterface
 				else
 				{
 					
-					//JOptionPane.showMessageDialog(frame, "Comparison Campaign Updated But No Graph Generated.");
+					JOptionPane.showMessageDialog(frame, "Comparison Campaign Updated But No Graph Generated.");
 				}
 			}
 		});
@@ -551,6 +554,7 @@ public class ComparePanel extends JPanel implements BorderInterface
 		{
 			campaign.addItem(s);
 		}
+		campaign.setSelectedItem(dbName+".db");
 	}
 	
 	public void importFiles(String path, String name)
