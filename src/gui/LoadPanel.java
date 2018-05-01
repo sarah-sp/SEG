@@ -69,6 +69,12 @@ public class LoadPanel extends JPanel
 		frame.setLocationRelativeTo(null);
 		add(centralPanel);
 
+		File dir = new File("database");
+		
+		if(!dir.exists())
+		{
+			dir.mkdirs();
+		}
 
 //		dbExists = frame.getController().createDatabase("campaign.db");
 //		
@@ -125,6 +131,7 @@ public class LoadPanel extends JPanel
 				
 				if (new File(path + "/click_log.csv").exists() && new File(path + "/impression_log.csv").exists() && new File(path + "/server_log.csv").exists())
 				{
+					
 					frame.getController().createTables("campaign.db"); 
                     dbExists = true;
 					startProgressBar();
