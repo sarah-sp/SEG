@@ -43,7 +43,7 @@ public class LoadPanel extends JPanel
 		this.frame = frame;
 		this.setPanel(panel);
 		centralPanel = new JPanel();
-		dbExists = true;
+		dbExists = new File("database/campaign.db").exists();
 		init();
 	}
 	
@@ -70,12 +70,12 @@ public class LoadPanel extends JPanel
 		add(centralPanel);
 
 
-		dbExists = frame.getController().createDatabase("campaign.db");
-		
-		if(!dbExists) //If a new database
-		{
-			frame.getController().createTables("campaign.db"); 
-		}
+//		dbExists = frame.getController().createDatabase("campaign.db");
+//		
+//		if(!dbExists) //If a new database
+//		{
+//			frame.getController().createTables("campaign.db"); 
+//		}
 		
 
 		setBorder(new EmptyBorder(15, 15, 15, 15));
@@ -119,15 +119,17 @@ public class LoadPanel extends JPanel
 			//JOptionPane.showMessageDialog(panel, "Please select a folder containing: click_log.csv, impression_log.csv and server_log.csv");
 			File folder = chooseFolder();
 			
-			while (folder != null) 
+			if (folder != null) 
 			{
 				path = folder.getAbsolutePath();
 				
 				if (new File(path + "/click_log.csv").exists() && new File(path + "/impression_log.csv").exists() && new File(path + "/server_log.csv").exists())
 				{
+					frame.getController().createTables("campaign.db"); 
+                    dbExists = true;
 					startProgressBar();
 					frame.getController().importFiles(path, "campaign.db");
-					break;
+					
 				}
 				else 
 				{

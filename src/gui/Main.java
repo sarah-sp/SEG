@@ -1,5 +1,6 @@
 package gui;
 import controller.Controller;
+
 import model.Database;
 
 /**
@@ -25,5 +26,6 @@ public class Main
 		view.setController(controller);
 		dbModel.setController(controller);
 		controller.updateView();
+		
 	}
 }
