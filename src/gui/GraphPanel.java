@@ -66,9 +66,11 @@ import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import gui.custom.CustomButton;
 import gui.custom.CustomPanel;
 import model.CompareStorage;
 import model.FilterStorage;
+import model.Theme;
 
 public class GraphPanel extends JPanel
 {
@@ -82,7 +84,8 @@ public class GraphPanel extends JPanel
 	private JPanel leftPanel;
 	private JPanel chartHolder;
 	private JPanel chartButtonsPanel;
-	private JButton add, remove, group, create, compare, save;
+	private CustomButton add, remove, group;
+	private JButton compare,create,save;
 	private JComboBox<String> metrics, chartTypeBox, timeGranularityBox, chartNames; 
 	private JList<Integer> filters;
 	private JTextPane textPane;
@@ -121,9 +124,9 @@ public class GraphPanel extends JPanel
 	
 	public void customisePanel(JPanel panel, String borderTitle)
 	{
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(Theme.ACTIVE_BG);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-		panel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.BLACK), borderTitle, TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, getFrame().getFont().deriveFont(12.0f)));
+		panel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Theme.ACTIVE_FG), borderTitle, TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, getFrame().getFont().deriveFont(12.0f), Theme.ACTIVE_FG));
 	}
 	
 	public MyFrame getFrame()
@@ -138,10 +141,12 @@ public class GraphPanel extends JPanel
 	
 	public void init()
 	{
-		UIManager.put("ToolTip.foreground", new ColorUIResource(Color.BLACK));
+		UIManager.put("ToolTip.foreground", new ColorUIResource(Theme.ACTIVE_FG));
+		UIManager.put("ToolTip.background", new ColorUIResource(Theme.ACTIVE_BG));
+		UIManager.put("OptionPane.foreground", new ColorUIResource(Theme.ACTIVE_FG));
 		
 		setLayout(new BorderLayout());
-		setBackground(Color.WHITE);
+		setBackground(Theme.ACTIVE_BG);
 		setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
 		
 		topPanel = new JPanel();
@@ -151,8 +156,8 @@ public class GraphPanel extends JPanel
 		initLeftPanel();
 				
 		chartHolder = new JPanel();
-		chartHolder.setBackground(Color.WHITE);
-		chartHolder.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+		chartHolder.setBackground(Theme.ACTIVE_BG);
+		chartHolder.setBorder(BorderFactory.createLineBorder(Theme.ACTIVE_FG, 3));
 		chartHolder.setMinimumSize(new Dimension (chartHolder.getWidth(), CHART_PANEL_HEIGHT));//THIS IS THE ISSUE I THINK
 		
 		chartButtonsPanel = new JPanel();
@@ -200,7 +205,7 @@ public class GraphPanel extends JPanel
 	public void initLeftPanel()
 	{	
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
-		leftPanel.setBackground(Color.WHITE);
+		leftPanel.setBackground(Theme.ACTIVE_BG);
 		leftPanel.setAlignmentX(Component.LEFT_ALIGNMENT);	
 		
 		font = new Font("Courier", Font.BOLD, 18);
@@ -231,6 +236,8 @@ public class GraphPanel extends JPanel
 		JScrollPane scrollPaneDetails = new JScrollPane(textPane);
 		
 		JSplitPane splitPane= new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPaneFilters, scrollPaneDetails);
+		splitPane.setForeground(Theme.ACTIVE_FG);
+		//splitPane.setBorder(new LineBorder(Color.red, 3));
 		splitPane.setAlignmentX(Component.CENTER_ALIGNMENT);
 		splitPane.setDividerLocation(40);
 		
@@ -241,7 +248,7 @@ public class GraphPanel extends JPanel
 		splitPanePanel.add(splitPane);
 		
 		JPanel splitPanePanelHolder = new JPanel();
-		splitPanePanelHolder.setBackground(Color.WHITE);
+		splitPanePanelHolder.setBackground(Theme.ACTIVE_BG);
 		splitPanePanelHolder.setMaximumSize(new Dimension(265, 180));
 		
 		splitPanePanelHolder.add(splitPanePanel);
@@ -251,22 +258,22 @@ public class GraphPanel extends JPanel
 		filterButtonsPanel.setMaximumSize(new Dimension(265, 40));
 		
 		JLabel chartElements = new JLabel(" Chart Dataset Elements");
-		chartElements.setBackground(Color.WHITE);
+		chartElements.setBackground(Theme.ACTIVE_BG);
 		chartElements.setFont(font);
 		
 		elementsField = new JTextField();
-		elementsField.setBackground(Color.WHITE);
+		elementsField.setBackground(Theme.ACTIVE_BG);
 		elementsField.setFont(font);
 		elementsField.setEditable(false);
-		elementsField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		elementsField.setBorder(BorderFactory.createLineBorder(Theme.ACTIVE_FG));
 		elementsField.setPreferredSize(new Dimension(265, 30));
 		
 		JPanel elementsPanel = new JPanel(new FlowLayout());
-		elementsPanel.setBackground(Color.WHITE);
+		elementsPanel.setBackground(Theme.ACTIVE_BG);
 		elementsPanel.add(elementsField);
 		
 		JPanel chartDatasetPanel = new JPanel();
-		chartDatasetPanel.setBackground(Color.WHITE);
+		chartDatasetPanel.setBackground(Theme.ACTIVE_BG);
 		chartDatasetPanel.setLayout(new BoxLayout(chartDatasetPanel, BoxLayout.PAGE_AXIS));
 		chartDatasetPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		chartDatasetPanel.setPreferredSize(new Dimension(250, 275));
@@ -334,7 +341,7 @@ public class GraphPanel extends JPanel
 		metricPanel.setMaximumSize(new Dimension(265, 60));
 
 		JPanel innerMetricPanel = new JPanel(new BorderLayout());
-		innerMetricPanel.setBackground(Color.WHITE);
+		innerMetricPanel.setBackground(Theme.ACTIVE_BG);
 		innerMetricPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		
 		metrics = new JComboBox<>(METRIC_NAMES);
@@ -359,15 +366,23 @@ public class GraphPanel extends JPanel
 	
 	public void initFilterButtons(JPanel filterButtonsPanel)
 	{
-		filterButtonsPanel.setBackground(Color.WHITE);
+		filterButtonsPanel.setBackground(Theme.ACTIVE_BG);
 		
-		add = new JButton("Add");
-		group = new JButton("Add As Group");
-		remove = new JButton("Remove");
+		add = new CustomButton("Add");
+		group = new CustomButton("Add As Group");
+		remove = new CustomButton("Remove");
 		
-		add.setBackground(Color.WHITE);
-		group.setBackground(Color.WHITE);
-		remove.setBackground(Color.WHITE);
+		add.setBackground(Theme.ACTIVE_BG);
+		group.setBackground(Theme.ACTIVE_BG);
+		remove.setBackground(Theme.ACTIVE_BG);
+		
+		add.setPreferredSize(new Dimension(80,30));
+		group.setPreferredSize(new Dimension(80,30));
+		remove.setPreferredSize(new Dimension(80,30));
+	
+		add.setFontSize(10);
+		group.setFontSize(10);
+		remove.setFontSize(10);
 		
 		add.setFocusPainted(false);
 		group.setFocusPainted(false);
@@ -564,21 +579,21 @@ public class GraphPanel extends JPanel
 	{
 		chartPanelList = new ArrayList<>();
 		
-		chartButtonsPanel.setLayout(new BoxLayout(chartButtonsPanel, BoxLayout.LINE_AXIS));
+		chartButtonsPanel.setLayout(new BoxLayout(chartButtonsPanel, BoxLayout.X_AXIS));
 		chartButtonsPanel.setPreferredSize(new Dimension(getWidth(), 85));
-		chartButtonsPanel.setBackground(Color.WHITE);
+		chartButtonsPanel.setBackground(Theme.ACTIVE_BG);
 		chartButtonsPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));			
 		
 		JPanel granularityPanel = new JPanel();
 		customisePanel(granularityPanel, "Time Granularity");
-		granularityPanel.setMaximumSize(new Dimension(1400, 60));
+		//granularityPanel.setMaximumSize(new Dimension(1400, 60));
 		
 		timeGranularityBox = new JComboBox<>();
 		timeGranularityBox.setPrototypeDisplayValue("XXXXXX");
 		timeGranularityBox.addItem(options[0]);
 		
 		JPanel granularityBoxPanel = new JPanel();
-		granularityBoxPanel.setBackground(Color.WHITE);
+		granularityBoxPanel.setBackground(Theme.ACTIVE_BG);
 		granularityBoxPanel.add(timeGranularityBox);
 			
 		granularityPanel.add(granularityBoxPanel);
@@ -594,7 +609,7 @@ public class GraphPanel extends JPanel
 		chartTypeBox.setSelectedItem(CHART_TYPES[0]);
 		
 		JPanel chartTypeBoxPanel = new JPanel();
-		chartTypeBoxPanel.setBackground(Color.WHITE);
+		chartTypeBoxPanel.setBackground(Theme.ACTIVE_BG);
 		chartTypeBoxPanel.add(chartTypeBox);
 		
 		chartTypePanel.add(chartTypeBoxPanel);
@@ -607,11 +622,11 @@ public class GraphPanel extends JPanel
 		ButtonGroup legendGroup = new ButtonGroup();
 		
 		yes = new JRadioButton("Yes");
-		yes.setBackground(Color.WHITE);
+		yes.setBackground(Theme.ACTIVE_BG);
 		
 		no = new JRadioButton("No");
 		no.setSelected(true);
-		no.setBackground(Color.WHITE);
+		no.setBackground(Theme.ACTIVE_BG);
 		
 		legendGroup.add(yes);
 		legendGroup.add(no);
@@ -627,15 +642,21 @@ public class GraphPanel extends JPanel
 		chartNames.setPreferredSize(new Dimension(150, 30)); // FIX
 		
 		JPanel chartBoxPanel = new JPanel();
-		chartBoxPanel.setBackground(Color.WHITE);
+		chartBoxPanel.setBackground(Theme.ACTIVE_BG);
 		chartBoxPanel.add(chartNames);
 		
 		chartsPanel.add(chartBoxPanel);
 		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(Theme.ACTIVE_BG);
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+		
 		save = new JButton("Save As");
 		create = new JButton("Create Chart");
 		compare = new JButton("Compare To");
-		JButton reset = new JButton("Default Settings");
+		JButton reset = new JButton("Default");
+		JButton print = new JButton("Print");
+
 		
 		create.setEnabled(true);
 		compare.setEnabled(false);
@@ -645,10 +666,10 @@ public class GraphPanel extends JPanel
 		save.setFocusPainted(false);
 		reset.setFocusPainted(false);
 
-		create.setBackground(Color.WHITE);
-		compare.setBackground(Color.WHITE);
-		save.setBackground(Color.WHITE);
-		reset.setBackground(Color.WHITE);
+		create.setBackground(Theme.ACTIVE_BG);
+		compare.setBackground(Theme.ACTIVE_BG);
+		save.setBackground(Theme.ACTIVE_BG);
+		reset.setBackground(Theme.ACTIVE_BG);
 		
 		create.setToolTipText("Create a chart which includes all filters from the chart dataset");
 		compare.setToolTipText("Compare current chart to another");
@@ -656,6 +677,12 @@ public class GraphPanel extends JPanel
 		reset.setToolTipText("Reset the current settings to the default ones");
 		
 		save.setEnabled(false);
+		
+		buttonPanel.add(save);
+		buttonPanel.add(create);
+		buttonPanel.add(compare);
+		buttonPanel.add(reset);
+		buttonPanel.add(print);
 		
 		chartButtonsPanel.add(chartTypePanel);
 		chartButtonsPanel.add(Box.createHorizontalStrut(20));
@@ -672,6 +699,8 @@ public class GraphPanel extends JPanel
 		chartButtonsPanel.add(save);
 		chartButtonsPanel.add(Box.createHorizontalStrut(20));
 		chartButtonsPanel.add(reset);
+		chartButtonsPanel.add(Box.createHorizontalStrut(20));
+		chartButtonsPanel.add(print);
 		
 		
 		chartTypeBox.addItemListener(new ItemListener()
@@ -793,11 +822,11 @@ public class GraphPanel extends JPanel
 		Object[] options = {"Confirm", "Create without title", "Cancel"};
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(Theme.ACTIVE_BG);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		
 		JLabel prompt = new JLabel("Please enter a title for the chart", JLabel.CENTER);
-		prompt.setBackground(Color.WHITE);
+		prompt.setBackground(Theme.ACTIVE_BG);
 		prompt.setFont(font);
 		
 		JTextField inputField = new JTextField(10);
@@ -1113,8 +1142,8 @@ public class GraphPanel extends JPanel
 		CategoryPlot catPlot = chart.getCategoryPlot();
 		catPlot.getDomainAxis().setLabelFont(font);
 		catPlot.getRangeAxis().setLabelFont(font);
-		catPlot.setDomainGridlinePaint(Color.BLACK);
-		catPlot.setRangeGridlinePaint(Color.BLACK);
+		catPlot.setDomainGridlinePaint(Theme.ACTIVE_FG);
+		catPlot.setRangeGridlinePaint(Theme.ACTIVE_FG);
 		catPlot.setBackgroundPaint(new Color(230,230,230));
 	}
 	
@@ -1123,8 +1152,8 @@ public class GraphPanel extends JPanel
 		XYPlot xyPlot = chart.getXYPlot();
 		xyPlot.getDomainAxis().setLabelFont(font);
 		xyPlot.getRangeAxis().setLabelFont(font);
-		xyPlot.setDomainGridlinePaint(Color.BLACK);
-		xyPlot.setRangeGridlinePaint(Color.BLACK);
+		xyPlot.setDomainGridlinePaint(Theme.ACTIVE_FG);
+		xyPlot.setRangeGridlinePaint(Theme.ACTIVE_FG);
 		xyPlot.setBackgroundPaint(new Color(230,230,230));
 	}
 	
@@ -1248,7 +1277,7 @@ public class GraphPanel extends JPanel
 				MetricFilter current = metricFilters.get(Integer.parseInt(matcher.group()));
 				String value = current.getValue();
 				
-				int val = value.contains("£") ? Integer.parseInt(value.substring(1)) : Integer.parseInt(value);
+				int val = value.contains("ï¿½") ? Integer.parseInt(value.substring(1)) : Integer.parseInt(value);
 				System.out.println(val);
 				categorySet.addValue(val, String.valueOf(matches), stacked == true? "" : current.getFilterDetails());
 			}
@@ -1476,14 +1505,14 @@ public class GraphPanel extends JPanel
 						close.setIcon(new ImageIcon("img/x.png"));
 						
 						JPanel exitPanel = new JPanel();
-						exitPanel.setBackground(Color.WHITE);
+						exitPanel.setBackground(Theme.ACTIVE_BG);
 						exitPanel.setLayout(new BoxLayout(exitPanel, BoxLayout.LINE_AXIS));
 						exitPanel.add(Box.createHorizontalGlue());
 						exitPanel.add(close);
 						
 						JPanel comparePanel = new JPanel();
 						comparePanel.setAlignmentX(Component.TOP_ALIGNMENT);
-						comparePanel.setBackground(Color.WHITE);
+						comparePanel.setBackground(Theme.ACTIVE_BG);
 						comparePanel.setLayout(new BoxLayout(comparePanel, BoxLayout.PAGE_AXIS));
 						comparePanel.add(exitPanel);
 						comparePanel.add(chartPanel);
