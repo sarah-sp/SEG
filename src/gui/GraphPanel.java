@@ -1249,7 +1249,9 @@ public class GraphPanel extends JPanel
 				MetricFilter current = metricFilters.get(Integer.parseInt(matcher.group()));
 				String value = current.getValue();
 				
-				categorySet.addValue(Double.parseDouble(value), String.valueOf(matches), stacked == true? "" : current.getFilterDetails());
+				int val = value.contains("£") ? Integer.parseInt(value.substring(1)) : Integer.parseInt(value);
+				System.out.println(val);
+				categorySet.addValue(val, String.valueOf(matches), stacked == true? "" : current.getFilterDetails());
 			}
 			else
 			{

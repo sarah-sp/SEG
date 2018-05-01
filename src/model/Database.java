@@ -440,6 +440,7 @@ public class Database
 		}
 		
 		query = stringBuilder.toString();
+		System.out.println(query);
 				
 		try 
 		{
