@@ -117,7 +117,9 @@ public class SettingsPanel extends JPanel implements BorderInterface
 						if(delete.isSelected()){
 
 							MyFrame.DELETE_DB = true;
+							SettingsOPanel.DELETE_DB = "Will be deleted";
 						} else {
+							SettingsOPanel.DELETE_DB = "Will be saved";
 							MyFrame.DELETE_DB = false;
 						}
 						
@@ -150,8 +152,8 @@ public class SettingsPanel extends JPanel implements BorderInterface
 				heading.setForeground(Theme.ACTIVE_FG);
 				heading.setFont(new Font("Courier", Font.BOLD, 20));
 				
-				brTimeSpent = new JRadioButton("Time spent on page", frame.getBounceDef().equals("time"));
-				brPageNum = new JRadioButton("Number of pages visited", frame.getBounceDef().equals("pages"));
+				brTimeSpent = new JRadioButton("Time spent on page", frame.getBounceDef().equals("Time"));
+				brPageNum = new JRadioButton("Number of pages visited", frame.getBounceDef().equals("Pages"));
 				
 				brTimeSpent.setBackground(Theme.ACTIVE_BG);
 				brPageNum.setBackground(Theme.ACTIVE_BG);
@@ -180,7 +182,7 @@ public class SettingsPanel extends JPanel implements BorderInterface
 					@Override
 					public void actionPerformed(ActionEvent arg0) 
 					{
-						frame.setBounceDef("pages");
+						frame.setBounceDef("Pages");
 						frame.revalidate();
 						frame.repaint();
 					}
@@ -191,7 +193,7 @@ public class SettingsPanel extends JPanel implements BorderInterface
 					@Override
 					public void actionPerformed(ActionEvent arg0)
 					{
-						frame.setBounceDef("time");
+						frame.setBounceDef("Time");
 						frame.revalidate();
 						frame.repaint();
 					}

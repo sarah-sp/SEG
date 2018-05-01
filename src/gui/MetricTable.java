@@ -218,7 +218,7 @@ public class MetricTable extends JTable
 						result = filterQuery(noUniques, filter);
 						break;
 					case "Number of Bounces":
-						result = frame.getBounceDef().equals("pages") ? filterQuery(noBouncesPage, filter) : filterQuery(noBouncesTime, filter);
+						result = frame.getBounceDef().equals("Pages") ? filterQuery(noBouncesPage, filter) : filterQuery(noBouncesTime, filter);
 						break;
 					case "Number of Conversions":
 						result = filterQuery(noConversions, filter);
@@ -243,7 +243,7 @@ public class MetricTable extends JTable
 				        result = "\u00A3"+ df2.format(cpm);
 				        break;				
 					case "Bounce Rate": //No of bounces / No of clicks
-						double bounceDef = frame.getBounceDef().equals("pages") ? Double.parseDouble(filterQuery(noBouncesPage, filter)) : Double.parseDouble(filterQuery(noBouncesTime, filter));
+						double bounceDef = frame.getBounceDef().equals("Pages") ? Double.parseDouble(filterQuery(noBouncesPage, filter)) : Double.parseDouble(filterQuery(noBouncesTime, filter));
 						double bounceRate = bounceDef /(Double.parseDouble(filterQuery(noClicks, filter)));
 				        result = df.format(bounceRate); 
 				        break;

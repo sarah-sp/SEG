@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -21,7 +22,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -47,6 +47,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import gui.custom.CustomPanel;
+import gui.custom.CustomButton;
 
 import model.CompareStorage;
 import model.Theme;
@@ -88,8 +89,8 @@ public class ComparePanel extends JPanel implements BorderInterface
 		JLabel labelC = new JLabel("Select Campaign to Compare:");
 		JLabel labelM = new JLabel("Select Metric to Compare:");
 		JLabel labelG = new JLabel("Select Granularity:");
-		JButton addCampaign = new JButton("Add Campaign");
-		JButton update = new JButton("Update");
+		CustomButton addCampaign = new CustomButton("Add Campaign");
+		CustomButton update = new CustomButton("Update");
 		String[] metricChoices = {"None", "Number of Impressions", "Number of Clicks", "Number of Uniques", "Number of Bounces", "Number of Conversions", "Total Cost"};
 		String[] granularities = {"Day", "Week", "Month"};
 		metrics = new JComboBox<String>(metricChoices);
@@ -100,6 +101,12 @@ public class ComparePanel extends JPanel implements BorderInterface
 		JLabel logo1 = new JLabel("", image1, JLabel.CENTER);
 		JLabel logo2 = new JLabel("", image2, JLabel.CENTER);
 		JLabel exitLabel = new JLabel("", exitImage, JLabel.CENTER);
+		
+		addCampaign.setPreferredSize(new Dimension(120,30));
+		addCampaign.setFontSize(13);
+		
+		update.setPreferredSize(new Dimension(120,30));
+		update.setFontSize(13);
 		
 		campaign = new JComboBox<>();
 		for(String s : cStorage.getCampaigns())
@@ -395,7 +402,7 @@ public class ComparePanel extends JPanel implements BorderInterface
 					switch((String) granularity.getSelectedItem())
 					{
 						case "Day":
-							if(frame.getBounceDef().equals("pages"))
+							if(frame.getBounceDef().equals("Pages"))
 							{
 								rs1    = stmt.executeQuery(numberOfBouncesPagesD);
 								rs2    = stmt2.executeQuery(numberOfBouncesPagesD);
@@ -407,7 +414,7 @@ public class ComparePanel extends JPanel implements BorderInterface
 							}
 							break;
 						case "Week":
-							if(frame.getBounceDef().equals("pages"))
+							if(frame.getBounceDef().equals("Pages"))
 							{
 								rs1    = stmt.executeQuery(numberOfBouncesPagesW);
 								rs2    = stmt2.executeQuery(numberOfBouncesPagesW);
@@ -419,7 +426,7 @@ public class ComparePanel extends JPanel implements BorderInterface
 							}
 							break;
 						case "Month":
-							if(frame.getBounceDef().equals("pages"))
+							if(frame.getBounceDef().equals("Pages"))
 							{
 								rs1    = stmt.executeQuery(numberOfBouncesPagesM);
 								rs2    = stmt2.executeQuery(numberOfBouncesPagesM);
@@ -478,7 +485,7 @@ public class ComparePanel extends JPanel implements BorderInterface
             
             while(rs2.next())
             {
-    	    	otherCampaign.add(Double.parseDouble(rs2.getString(1)), rs2.getInt(2));
+    	    	otherCampaign.add(Double.parseDouble(rs2.getString(1)), rs2.getDouble(2));
             }
             
             dataset.addSeries(yourCampaign);
