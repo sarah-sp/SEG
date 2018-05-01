@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -1569,8 +1568,8 @@ public class GraphPanel extends JPanel
 			doc.insertString(doc.getLength(), "Age: " + selected.selectAge.getSelectedItem().toString() + "\n" , attSet);
 			doc.insertString(doc.getLength(), "Income: " + selected.selectIncome.getSelectedItem().toString() + "\n" , attSet);
 			doc.insertString(doc.getLength(), "Context: " + selected.selectContext.getSelectedItem().toString() + "\n" , attSet);
-			doc.insertString(doc.getLength(), "From: " + selected.startDate + "\n" , attSet);
-			doc.insertString(doc.getLength(), "Until: " + selected.endDate, attSet);
+			doc.insertString(doc.getLength(), "From: " + selected.startDate.getText() + "\n" , attSet);
+			doc.insertString(doc.getLength(), "Until: " + selected.endDate.getText(), attSet);
 		} 
 		catch (BadLocationException e) 
 		{
