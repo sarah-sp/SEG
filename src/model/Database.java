@@ -337,7 +337,7 @@ public class Database
 		
 		if(filter.metricsBox.getSelectedItem().toString().toLowerCase().contains("cost"))
 		{
-			result = "£" + result;
+			result = "ï¿½" + result;
 		}
 		
 		filter.setValue(result);

@@ -5,11 +5,16 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -34,6 +39,8 @@ public class MetricFilterPanel extends JPanel implements BorderInterface
 	private FilterStorage storage;
 	private JPanel buttonPanel, filterPanel;
 	private CustomButton add, update;
+	Format format = new SimpleDateFormat("yyyy-MM-dd");
+	
 	
 	public MetricFilterPanel(MyFrame frame, FilterStorage storage)
 	{
@@ -82,13 +89,11 @@ public class MetricFilterPanel extends JPanel implements BorderInterface
 		add = new CustomButton("Add Metric");
 		add.setFontSize(23);
 		add.setPreferredSize(new Dimension(100,30));
-		//add.setBorder(new CompoundBorder(new LineBorder(new Color(220,220,220), 1), BorderFactory.createEmptyBorder(2,2,2,2)));
 		add.setBorder(new LineBorder(Theme.ACTIVE_FG, 1));
 		
 		update = new CustomButton("Update");
 		update.setPreferredSize(new Dimension(100,30));
 		update.setFontSize(23);
-		//update.setBorder(new CompoundBorder(new LineBorder(new Color(220,220,220), 1), BorderFactory.createEmptyBorder(8,8,8,8)));
 		update.setBorder(new LineBorder(Theme.ACTIVE_FG, 1));
 		
 		buttonPanel = new JPanel();
@@ -131,12 +136,43 @@ public class MetricFilterPanel extends JPanel implements BorderInterface
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				storage.getMetricTablePanel().updateTableRecords();
-				storage.getFrame().getMainPanel().getMenuPanel().getGrahpPanel().updateFilterList(); //METHOD NEEDS SPELLING FIX
+				if(validInput()){
+					storage.getMetricTablePanel().updateTableRecords();
+					storage.getFrame().getMainPanel().getMenuPanel().getGrahpPanel().updateFilterList();
+				} 
 			}
 		});
 	}
 	
+    
+    public boolean validInput(){
+
+        Date currFromDate, currToDate, end, start;
+		try {
+			end = (Date)format.parseObject(storage.getEndDate().substring(0,10));
+			start = (Date)format.parseObject(storage.getStartDate().substring(0,10));
+			currFromDate = (Date) format.parseObject(MetricFilter.startDate.getText());
+			currToDate = (Date) format.parseObject(MetricFilter.endDate.getText());
+			
+            if(currFromDate.after(end) || currFromDate.before(start) || currToDate.after(end) || currToDate.before(start)) {
+            	JOptionPane.showMessageDialog(this, "Date out of bounds", "Invalid Input", JOptionPane.INFORMATION_MESSAGE, null);
+            	
+            	if(currFromDate.after(end) || currFromDate.before(start))
+            		MetricFilter.startDate.setText(storage.getStartDate().substring(0,10));
+            	if(currToDate.after(end) || currToDate.before(start))
+            		MetricFilter.endDate.setText(storage.getEndDate().substring(0,10));
+            	return false;
+            } else {
+            	return true;
+            }
+		} catch (ParseException e1) {
+			JOptionPane.showMessageDialog(this, "Invalid Input", "Invalid Input", JOptionPane.INFORMATION_MESSAGE, null);
+			MetricFilter.startDate.setText(storage.getStartDate().substring(0,10));
+			MetricFilter.endDate.setText(storage.getEndDate().substring(0,10));
+        	
+		}
+		return false;
+    }
 	public void updateMetricPanel()
 	{
 		scrollPaneHolder.removeAll();

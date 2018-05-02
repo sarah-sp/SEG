@@ -6,21 +6,36 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 import gui.custom.CustomButton;
 import model.FilterStorage;
@@ -36,8 +51,8 @@ public class MetricFilter extends JPanel implements BorderInterface
     public JComboBox<String> selectAge;
     public JComboBox<String> selectIncome;
     public JComboBox<String> selectContext;
-    public JTextField startDate;
-    public JTextField endDate;
+//    public JTextField startDate;
+//    public JTextField endDate;
     private JLabel label, selectMetricLabel, startLabel, endLabel,refineLabel, genderLabel, ageLabel, incomeLabel, contextLabel;
     private FilterStorage storage;
     private String value = null;
@@ -45,6 +60,7 @@ public class MetricFilter extends JPanel implements BorderInterface
     private CustomButton remove;
     private JPanel topPanel, contentPanel, metricPanel, datePanel, refinePanel;
     private String query;
+    public static JFormattedDateTextField startDate, endDate;
 
 	public MetricFilter(FilterStorage storage)
 	{	
@@ -125,14 +141,14 @@ public class MetricFilter extends JPanel implements BorderInterface
 				
 		metricsBox = new JComboBox<String>(metrics);
 		metricsBox.setForeground(Theme.ACTIVE_FG);
-	    startDate = new JTextField(storage.getStartDate().substring(0,10));
-	    startDate.setForeground(Theme.ACTIVE_FG);
-	    startDate.setHorizontalAlignment(JTextField.CENTER);
-	    startDate.setFont(metricsBox.getFont());    
-	    endDate = new JTextField(storage.getEndDate().substring(0,10));
-	    endDate.setHorizontalAlignment(JTextField.CENTER);
-	    endDate.setForeground(Theme.ACTIVE_FG);
-	    endDate.setFont(metricsBox.getFont());
+//	    startDate = new JTextField(storage.getStartDate().substring(0,10));
+//	    startDate.setForeground(Theme.ACTIVE_FG);
+//	    startDate.setHorizontalAlignment(JTextField.CENTER);
+//	    startDate.setFont(metricsBox.getFont());    
+//	    endDate = new JTextField(storage.getEndDate().substring(0,10));
+//	    endDate.setHorizontalAlignment(JTextField.CENTER);
+//	    endDate.setForeground(Theme.ACTIVE_FG);
+//	    endDate.setFont(metricsBox.getFont());
 	    selectGender = new JComboBox<String>(gender);
 	    selectGender.setForeground(Theme.ACTIVE_FG);
 	    selectAge = new JComboBox<String>(age);
@@ -141,6 +157,15 @@ public class MetricFilter extends JPanel implements BorderInterface
 	    selectIncome.setForeground(Theme.ACTIVE_FG);
 	    selectContext = new JComboBox<String>(contexts);
 	    selectContext.setForeground(Theme.ACTIVE_FG);
+	    
+	    startDate = new JFormattedDateTextField();
+	    startDate.setText(storage.getStartDate().substring(0,10));
+	    
+	    
+	    endDate = new JFormattedDateTextField();
+	    endDate.setText(storage.getEndDate().substring(0,10));
+	    
+	    //startDate = smth.getText();
 	    
 	    ArrayList<JComboBox<String>> changeListeners = new ArrayList<>();
 	    changeListeners.add(metricsBox);
@@ -305,4 +330,59 @@ public class MetricFilter extends JPanel implements BorderInterface
 		
 		return labelText;
 	}
+	
+	
+	 public class JFormattedDateTextField extends JFormattedTextField {
+		   Format format = new SimpleDateFormat("yyyy-MM-dd");
+		   boolean invalidInput;
+		  
+		   public JFormattedDateTextField() {
+		      super();
+		      invalidInput = false;
+		      MaskFormatter maskFormatter = null;
+		      try {
+		         maskFormatter = new MaskFormatter("####-##-##");
+		      } catch (ParseException e) {
+		         e.printStackTrace();
+		      }
+		  
+		      maskFormatter.setPlaceholderCharacter('_');
+		      setFormatterFactory(new DefaultFormatterFactory(maskFormatter));
+		      this.addFocusListener(new FocusAdapter() {
+		         public void focusGained(FocusEvent e) {
+		            if (getFocusLostBehavior() == JFormattedTextField.PERSIST)
+		               setFocusLostBehavior(JFormattedTextField.COMMIT_OR_REVERT);
+		         }   
+		      });
+		            
+		        
+		   }
+		   
+		   public void setValue(Date date) {
+			      super.setValue(toString(date));
+			   }
+			  
+			   private Date toDate(String sDate) {
+			      Date date = null;
+			      if (sDate == null) return null;
+			      try {
+			         date = (Date) format.parseObject(sDate);
+			      }
+			      catch (ParseException pe) {
+			         // ignore
+			      }
+			  
+			      return date;
+			   }
+			  
+			   private String toString(Date date) {
+			      try {
+			         return format.format(date);
+			      } catch (Exception e) {
+			         return "";
+			      }
+			   }
+	}
+	 
 }
+

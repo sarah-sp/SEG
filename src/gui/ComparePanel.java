@@ -186,10 +186,11 @@ public class ComparePanel extends JPanel implements BorderInterface
 						boolean dbExists = true;
 						String dbName = null;
 						
+
 						while(dbExists)
 						{
 							dbName = (String) JOptionPane.showInputDialog(frame, "Enter New Campaign Name:", "Name Campaign", JOptionPane.PLAIN_MESSAGE, null, null, "name");
-
+							
 							
 							dbExists = frame.getController().createDatabase(dbName + ".db");
 
