@@ -963,6 +963,8 @@ public class GraphPanel extends JPanel
 				chart = createXYLineChart(title);
 		}
 		
+		chartImage = chart.createBufferedImage(650, 650);
+		
 		chart.getPlot().setBackgroundPaint(new Color(230,230,230));
 		chart.getTitle().setFont(font.deriveFont(26.0f));
 		
