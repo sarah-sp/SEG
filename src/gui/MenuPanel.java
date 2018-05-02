@@ -59,9 +59,8 @@ public class MenuPanel extends JPanel
 		graphPanel = new GraphPanel(frame, contentPanel, fStorage, cStorage);
 		comparePanel = new ComparePanel(frame, contentPanel, cStorage);
 		settingsPanel = new SettingsPanel(frame, contentPanel);
-		
+		scroll =  new JScrollPane(graphPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);	
 		init();
-		
 	}
 
 	public void changeTheme(Container c, Color bg, Color fg, Color hover){
@@ -181,8 +180,6 @@ public class MenuPanel extends JPanel
 		CustomButton compare = new CustomButton("Compare Campaigns");
 		CustomButton settings = new CustomButton("Settings");
 		CustomButton exit = new CustomButton("Exit");
-		
-		scroll =  new JScrollPane(graphPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);	
 		
 		metrics.setName("metricsPanel");
 		graphs.setName("graphsPanel");

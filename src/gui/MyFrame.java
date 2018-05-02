@@ -216,8 +216,8 @@ public class MyFrame extends JFrame
 	public void refreshMain() 
 	{
 		contentPane.removeAll();
-		MainPanel mainPanel = new MainPanel(this, contentPane, fStorage, cStorage);
-		this.mainPanel = mainPanel;
+//		MainPanel mainPanel = new MainPanel(this, contentPane, fStorage, cStorage);
+//		this.mainPanel = mainPanel;
 		mainPanel.changeTheme(mainPanel, Theme.ACTIVE_BG, Theme.ACTIVE_FG, Theme.ACTIVE_HOVER);
 		contentPane.add(mainPanel);
 		contentPane.revalidate();

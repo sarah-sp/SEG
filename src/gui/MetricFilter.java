@@ -160,12 +160,12 @@ public class MetricFilter extends JPanel implements BorderInterface
 	    
 	    startDate = new JFormattedDateTextField();
 	    startDate.setText(storage.getStartDate().substring(0,10));
+	    startDate.setFont(metricsBox.getFont());
 	    
 	    
 	    endDate = new JFormattedDateTextField();
 	    endDate.setText(storage.getEndDate().substring(0,10));
-	    
-	    //startDate = smth.getText();
+	    endDate.setFont(metricsBox.getFont());
 	    
 	    ArrayList<JComboBox<String>> changeListeners = new ArrayList<>();
 	    changeListeners.add(metricsBox);
@@ -332,57 +332,75 @@ public class MetricFilter extends JPanel implements BorderInterface
 	}
 	
 	
-	 public class JFormattedDateTextField extends JFormattedTextField {
-		   Format format = new SimpleDateFormat("yyyy-MM-dd");
-		   boolean invalidInput;
+	 public class JFormattedDateTextField extends JFormattedTextField 
+	 {
+		 Format format = new SimpleDateFormat("yyyy-MM-dd");
+		 boolean invalidInput;
 		  
-		   public JFormattedDateTextField() {
-		      super();
-		      invalidInput = false;
-		      MaskFormatter maskFormatter = null;
-		      try {
-		         maskFormatter = new MaskFormatter("####-##-##");
-		      } catch (ParseException e) {
-		         e.printStackTrace();
-		      }
+		 public JFormattedDateTextField() 
+		 {
+			 super();
+		     invalidInput = false;
+		     MaskFormatter maskFormatter = null;
+		     try 
+		     {
+		    	 maskFormatter = new MaskFormatter("####-##-##");
+		     } 
+		     catch (ParseException pe) 
+		     {
+		         pe.printStackTrace();
+		     }
 		  
-		      maskFormatter.setPlaceholderCharacter('_');
-		      setFormatterFactory(new DefaultFormatterFactory(maskFormatter));
-		      this.addFocusListener(new FocusAdapter() {
-		         public void focusGained(FocusEvent e) {
-		            if (getFocusLostBehavior() == JFormattedTextField.PERSIST)
-		               setFocusLostBehavior(JFormattedTextField.COMMIT_OR_REVERT);
+		     maskFormatter.setPlaceholderCharacter('_');
+		     setFormatterFactory(new DefaultFormatterFactory(maskFormatter));
+		     addFocusListener(new FocusAdapter() 
+		     {
+		         public void focusGained(FocusEvent e) 
+		         {
+		        	 if (getFocusLostBehavior() == JFormattedTextField.PERSIST)
+		        	 {
+		        		 setFocusLostBehavior(JFormattedTextField.COMMIT_OR_REVERT);
+		        	 }
 		         }   
 		      });
 		            
 		        
 		   }
 		   
-		   public void setValue(Date date) {
+		   public void setValue(Date date) 
+		   {
 			      super.setValue(toString(date));
-			   }
+		   }
 			  
-			   private Date toDate(String sDate) {
-			      Date date = null;
-			      if (sDate == null) return null;
-			      try {
-			         date = (Date) format.parseObject(sDate);
-			      }
-			      catch (ParseException pe) {
-			         // ignore
-			      }
+		   private Date toDate(String sDate) 
+		   {
+			    Date date = null;
+			    if (sDate == null) return null;
+			      
+			    try 
+			    {
+			        date = (Date) format.parseObject(sDate);
+			    }
+			    catch (ParseException pe) 
+			    {
+			        pe.printStackTrace();
+			    }
 			  
-			      return date;
-			   }
+		        return date;
+		   }
 			  
-			   private String toString(Date date) {
-			      try {
-			         return format.format(date);
-			      } catch (Exception e) {
-			         return "";
-			      }
-			   }
+		   private String toString(Date date) 
+		   {
+		        try 
+			    {
+			        return format.format(date);
+			    } 
+			    catch (Exception e) 
+		        {
+	
+			    	return "";
+			    }
+	      }
 	}
-	 
 }
 

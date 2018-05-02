@@ -509,7 +509,7 @@ public class GraphPanel extends JPanel
 				selection += id + " ";
 			}
 			
-			selection = "(" + selection.trim() + ")";
+			selection = "\\(" + selection.trim() + "\\)";
 			
 		}
 		return selection;
@@ -649,10 +649,10 @@ public class GraphPanel extends JPanel
 		
 		JPanel chartsPanel = new JPanel();
 		customisePanel(chartsPanel, "Charts Created");
-		chartsPanel.setMaximumSize(new Dimension(200, 70)); // FIX
+		chartsPanel.setMaximumSize(new Dimension(200, 70));
 			
 		chartNames = new JComboBox<>();
-		chartNames.setPreferredSize(new Dimension(150, 30)); // FIX
+		chartNames.setPreferredSize(new Dimension(150, 30));
 		
 		JPanel chartBoxPanel = new JPanel();
 		chartBoxPanel.setBackground(Theme.ACTIVE_BG);
@@ -1374,7 +1374,7 @@ public class GraphPanel extends JPanel
 			{	
 				MetricFilter current = metricFilters.get(Integer.parseInt(matcher.group()));
 				String query = metricFilters.get(Integer.parseInt(matcher.group())).getQuery();
-				xySeries = new XYSeries(matcher.find());
+				xySeries = new XYSeries(current.getFilterIndex());
 				
 				ResultSet resultSet = frame.getController().getTimeGranularityResultSet(query, timeGranularityBox.getSelectedItem().toString());
 				
@@ -1419,7 +1419,7 @@ public class GraphPanel extends JPanel
 					{
 						int sum = 0;
 						
-						for(int i=0; i < resultSetList.size(); i++)
+						for(int i=0; i <= resultSetList.size(); i++)
 						{
 							sum += resultSetList.get(i).getInt(2);
 						}
@@ -1729,6 +1729,7 @@ public class GraphPanel extends JPanel
 	{	
 		metrics.setSelectedIndex(0);
 		elementsField.setText("");
+		chartTypeBox.setSelectedIndex(0);
 		timeGranularityBox.setSelectedIndex(0);
 		no.setSelected(true);
 		create.setEnabled(true);
