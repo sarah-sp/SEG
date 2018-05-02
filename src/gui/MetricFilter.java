@@ -60,11 +60,7 @@ public class MetricFilter extends JPanel implements BorderInterface
     private CustomButton remove;
     private JPanel topPanel, contentPanel, metricPanel, datePanel, refinePanel;
     private String query;
-<<<<<<< HEAD
     public JFormattedDateTextField startDate, endDate;
-=======
-    public static JFormattedDateTextField startDate, endDate;
->>>>>>> 74b05ebf8eec7fdb2202de7d7ce4afe848fd544b
 
 	public MetricFilter(FilterStorage storage)
 	{	
@@ -163,19 +159,14 @@ public class MetricFilter extends JPanel implements BorderInterface
 	    selectContext.setForeground(Theme.ACTIVE_FG);
 	    
 	    startDate = new JFormattedDateTextField();
-<<<<<<< HEAD
 	    startDate.setForeground(Theme.ACTIVE_FG);
-=======
->>>>>>> 74b05ebf8eec7fdb2202de7d7ce4afe848fd544b
+
 	    startDate.setText(storage.getStartDate().substring(0,10));
 	    startDate.setFont(metricsBox.getFont());
 	    
 	    
 	    endDate = new JFormattedDateTextField();
-<<<<<<< HEAD
 	    endDate.setForeground(Theme.ACTIVE_FG);
-=======
->>>>>>> 74b05ebf8eec7fdb2202de7d7ce4afe848fd544b
 	    endDate.setText(storage.getEndDate().substring(0,10));
 	    endDate.setFont(metricsBox.getFont());
 	    

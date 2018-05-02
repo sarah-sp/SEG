@@ -151,21 +151,13 @@ public class MainPanel extends JPanel
 		menuPanel.changeTheme(menuPanel.getGrahpPanel(), bg, fg, hover);
 		menuPanel.changeTheme(menuPanel.getComparePanel(), bg, fg, hover);
 		menuPanel.changeTheme(menuPanel.getSettingsPanel(), bg, fg, hover);
-<<<<<<< HEAD
-//		
-////		revalidate();
-////	    repaint();
-////
-////		frame.revalidate();
-////		frame.repaint();
-=======
 		
 		revalidate();
 	    repaint();
 
 		frame.revalidate();
 		frame.repaint();
->>>>>>> 74b05ebf8eec7fdb2202de7d7ce4afe848fd544b
+
 	}
 	
 	public MenuPanel getMenuPanel()
