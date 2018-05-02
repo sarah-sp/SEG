@@ -426,9 +426,6 @@ public class SettingsPanel extends JPanel implements BorderInterface
 
 	}
 
-
-
-
 	private void fillFiller(JPanel fillerPanel, JPanel filler, GridBagConstraints c) 
 	{
 		for (int i = 0; i < 2; i++)
@@ -449,10 +446,7 @@ public class SettingsPanel extends JPanel implements BorderInterface
 		c.gridy = 1;
 		c.fill = GridBagConstraints.BOTH;
 	}
-	
 
-	
-	
 	/*
 	 * listener for the make your own theme functionality
 	 */

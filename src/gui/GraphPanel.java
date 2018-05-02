@@ -872,6 +872,7 @@ public class GraphPanel extends JPanel
 				}
 				else
 				{
+					displayChart("");
 					chartNames.addItem(title);
 					chartNames.getModel().setSelectedItem(title);
 					chartPanelList.get(chartNames.getSelectedIndex()).setName(chartNames.getItemAt(chartNames.getSelectedIndex()));
@@ -888,7 +889,6 @@ public class GraphPanel extends JPanel
 						index++;
 					}
 				}
-				
 				displayChart("");
 				chartNames.addItem("Untitled" + index);
 				chartNames.getModel().setSelectedItem("Untitled" + index);
@@ -904,7 +904,6 @@ public class GraphPanel extends JPanel
 				create.setEnabled(false);
 				save.setEnabled(true);
 				print.setEnabled(true);
-				
 			}
 			
 			if (chartNames.getModel().getSize() > 1)
