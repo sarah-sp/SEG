@@ -20,7 +20,7 @@ public class GraphOPanel extends CustomOPanel
 
 		Font font = new Font("Courier", Font.BOLD,32);
 		
-		JLabel label = new JLabel("Not yet implemented");
+		JLabel label = new JLabel("<html><font face=Courier size=17><center>Create Metrics and Enter the</center><br><center>Advanced Graphs Section to View Graphs</center></html>");
 		label.setFont(font);
 		label.setForeground(Theme.ACTIVE_FG);
 		
