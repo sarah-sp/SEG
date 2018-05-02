@@ -1,127 +1,96 @@
 <html>
-<p><b>Dash User Guide</b></p>
+<p><strong>Dash User Guide</strong></p>
+<p>Dash was designed for online marketing agencies, with the express purpose of benefiting their customers. <br>The software provides all features for a customer of an online marketing agency to make informed choices on their investment into campaigns lead by an agency. This is made possible through a plethora of features,<br>  allowing anyone, ranging from those new to online advertising, to seasoned veterans versed in data analysis, to support all investment choices with unbiased data.</p>
+<p><strong>PREREQUISITES</strong></p>
+<p>Dash is based on the Java Framework. It cannot be run on machines not supporting the JVM.</p>
+<p>Dash expects users to acquire log files of campaigns from their agencies. These must be stored on the same <br>machine as Dash, preferably in Dash&rsquo;s directory, but otherwise may be stored wherever the user wishes. Along with this you will be provided with necessary documents and libraries to run the application with its full features.</p>
+<ol>
+<li><strong> STARTING THE APPLICATION</strong></li>
+</ol>
+<p><strong>1.1 Opening Dash and the Start Screen</strong></p>
+<p>Run the Dash Application provided. When opened, you will be displayed with a screen to load your campaign (see <strong>3.1 </strong>for Loading Campaign Files). <br>Once you have successfully loaded your campaign, Dash will enter the main application window. The metrics, graphs, comparing campaigns and settings features are now available to you.</p>
+<p>For more information on any of these, please see sections <strong>3.2</strong> through <strong>3.5</strong>.</p>
+<p><strong>1.2 The Main Application Window</strong></p>
+<p>After you have completed <strong>1.1</strong>, you will now be in Dash&rsquo;s main window. Here, all features <br>are listed for you. These include features <br><strong>3.2</strong> through <strong>3.5</strong> of this guide, as well as application closure as listed in <strong>2.2</strong>.</p>
+<p>The main features of this window are the overview capabilities. Hovering your mouse over each feature button displays an overview panel for each section in the main panel of the application. <br>Clicking on each button provides you with an advanced window for the respective feature (see <strong>3</strong>).</p>
+<ol start="2">
+<li><strong> CLOSING THE APPLICATION</strong></li>
+</ol>
+<p><strong>2.1 Closing Dash from the Start Screen</strong></p>
+<p>When in the start screen, Dash has not yet loaded any campaign files. Simply close the application window by clicking close at the top and Dash will safely close.</p>
+<p><strong>2.2 Closing Dash from the Main Application Window</strong></p>
+<p>From the main application window you can exit the application by selecting the Exit button in the bottom left of the window. You will be prompted with a window for <br>you to confirm your exit and the application will close after confirmation. You can also exit the application with the close button in <br>the top right of the window with no confirmation.</p>
+<ol start="3">
+<li><strong> USING THE APPLICATION</strong></li>
+</ol>
+<p><strong>3.1 Loading Campaign Files</strong></p>
+<p><strong>Loading Files in Dash&rsquo;s Directory</strong></p>
+<p>When presented with the option to load campaign data, Dash will always check it&rsquo;s own directory first for a preloaded database and failing that, a set of correct <br>log files in a log_files directory. If a loaded campaign is found in Dash&rsquo;s directory, the application will instantly be loaded in for you. If the correct log files are located automatically then the database will immediately start loading and when finished,<br> you will be shown the main application window. If neither of these are the case then see the next section.</p>
+<p><strong>Loading Files Outside Dash&rsquo;s Directory</strong></p>
+<p>When loading additional campaigns into Dash, or if an initial campaign can not be found by Dash in it&rsquo;s directory, a file navigation window will appear. In the file <br>navigator, select the directory containing all log files to be loaded into Dash and click on the Load Campaign button. Dash will then load your campaign. In the event of a failure to select the correct log files, <br>Dash will inform you and offer the choice to try again or cancel the action.</p>
+<h2><br /><br /></h2>
+<p><strong>3.2 Metrics</strong></p>
+<p><strong>Overview of Metrics </strong></p>
+<p>An overview of your loaded campaign&rsquo;s metrics is shown whenever your mouse hovers over the Metric tab. This will show you a table of your campaign&rsquo;s main metrics.<br> Further hovering your mouse over rows on this table will highlight the rows to make them easier to read and pinpoint.</p>
+<p><strong>Advanced Metrics</strong></p>
+<p>Selecting the metric button will take you to the advanced metrics window. This allows you to filter the metrics and display the results in a table.</p>
+<p><strong>Add a Metric</strong></p>
+<p>Once in the Metric section, to add a new metric to the table, click the <strong>Add Metric</strong> button. Then select a metric from the list. Selecting &ldquo;None&rdquo; <br>effectively cancels your choice. To add it to the table, click <strong>Update</strong>. To filter your metric, see the next section.</p>
+<p><strong>Filter a metric</strong></p>
+<p>You can filter a metric by a date range and by categorical data such as gender, age, income, and context. To filter a metric (new or existing), alter the filter constraints <br>using the drop down boxes provided for each section. For date ranges simply type in the date in the format specified above the text field. You will receive an error message if this is incorrect or out of range. <br>Then click <strong>Update </strong>to refresh the table.</p>
+<p><strong>Delete a metric</strong></p>
+<p>To delete a metric, navigate to the metric in the list of metric filters, then click the <strong>Delete</strong> button on the top right of the metric. The table will be automatically updated.</p>
 <p></p>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;&nbsp;Dash was designed for online marketing agencies, with the express purpose of benefiting their customers. The software provides all features for a customer of an online marketing agency to make informed choices on their investment into campaigns lead by an agency. This is made possible through a plethora of features, allowing anyone, ranging from those new to online advertising, to seasoned veterans versed in data analysis, to support all investment choices with unbiased data.</span></p>
+<p><strong>3.3 Graphs</strong></p>
+<p><strong>Overview of Graphs</strong></p>
+<p>The graphs overview space is used to explain to the user that they need to create their metrics first before creating their graphs in the Advanced Graphs section.</p>
+<p><strong>Advanced Graphs</strong></p>
+<p>Selecting the graphs button will take you to the advanced graphs window. Here you will be able to select your filtered metrics for them to be displayed on graphs of your choosing. <br>You will also be able to compare, save and print these generated graphs.</p>
+<p><strong>Create a graph</strong></p>
+<p>Select the metric type that you wish to create a graph for from the <strong>Metric Name</strong> drop down <br>box provided in the top left of the window. After selecting this you will be displayed with all the filtered metrics you have created for this metric type in the <strong>Metric Filters</strong> box. You can <br>click on each metric filter and it will display its details and constraints in the adjacent box. When you have found the metric you wish to create a graph of then select it and press the <strong>Add</strong> button below the box. <br>You can add several metrics, individually or grouped (using the Ctrl key), in order to add more data to the graphs. Next, select the type of graph you wish to create using the <br><strong>Chart Type</strong> drop down box provided in the bottom left of the window. You have several graph/chart types to choose from. Then choose the <strong>Time Granularity</strong> of the chart,<br> whether it should include a <strong>Legend</strong> and click <strong>Create Chart</strong>. You will then be prompted to name your graph or to create it without a title. After selecting either of these options your graph will<br> be displayed.</p>
+<p><strong>Compare graphs</strong></p>
+<p>If you have at least two graphs made then you can select the <strong>Compare To</strong> button. This allows you to select another one of your graphs and it will display the graphs<br> side by side. You can remove the compared graph by selecting the <strong>X</strong> button located to the top right of the compared graph.</p>
+<p><strong>Export a graph</strong></p>
+<p>Select the <strong>Save As</strong> button to save your graph as an image. You will prompted to enter a filename that you wish to save it as, as well as a file type and it will be <br>saved to the Dash directory. The path to this file will be displayed for you.</p>
+<p>To save to a location of your choice, right click on the image and select <strong>Save as</strong> and you will be prompted to choose a location to save your image.</p>
+<p><strong>Print a graph</strong></p>
+<p>To print a graph simply select the <strong>Print Chart</strong> button and you will be displayed a window to select the printer properties and then print your chart.</p>
+<p><strong>Default setting </strong></p>
+<p>Selecting the <strong>Default</strong> button reverts all the graph settings back to default.</p>
 <p></p>
-<p><b>PREREQUISITES</b></p>
-<p><span style="font-weight: 400;">Dash is based on the Java Framework. It cannot be run on machines not supporting the JVM.</span></p>
-<p><span style="font-weight: 400;">Dash expects users to acquire log files of campaigns from their agencies. These must be stored on the same machine as Dash, preferably in Dash&rsquo;s directory, but otherwise may be stored wherever the user wishes. </span></p>
-<p><b>1 STARTING THE APPLICATION</b></p>
-<p><b>1.1 Opening Dash and the Start Screen</b></p>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Firstly, ensure the Dash application is installed. </span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Once installed, open Dash. </span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">When Dash has opened, load your campaign (see </span><b>3.0</b><span style="font-weight: 400;">). </span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Once you have successfully loaded your campaign, Dash will enter the main application window.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Viewing metrics, graphs and comparing campaigns are features now available to you. For more information on any of these, please see sections </span><b>3.1</b><span style="font-weight: 400;"> through </span><b>3.3</b><span style="font-weight: 400;">. For advanced setting management, see </span><b>3.4</b><span style="font-weight: 400;">.</span></li>
-</ol>
-<p><b>1.2 The Main Application Window</b></p>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;&nbsp;After you have completed </span><b>1.1</b><span style="font-weight: 400;">, you will now be in Dash&rsquo;s main window. Here, all features are listed for you. These include features </span><b>3.1</b><span style="font-weight: 400;"> through </span><b>3.4</b><span style="font-weight: 400;"> of this guide, as well as </span><b>2.2</b><span style="font-weight: 400;"> for application closure. </span></p>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;&nbsp;The main feature of this window is the overview capabality. Hovering your mouse over the button representative of each feature gives an overview panel of this sections functionality in the main display panel. The contents of each overview is explained in sections </span><b>3.1</b><span style="font-weight: 400;"> through </span><b>3.4 </b><span style="font-weight: 400;">in detail.</span></p>
-<p><b>2 CLOSING THE APPLICATION</b></p>
-<p><b>2.1 Closing Dash from the Start Screen</b></p>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;When in the start screen, Dash has not yet loaded any campaign files. Whether you opt to use the Exit button provided, or simply close the application window by clicking close at the top, Dash will safely close. </span></p>
-<p><b>2.2 Closing Dash from the Main Application Window</b></p>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;Dash is designed, with campaign data loaded, to safely wipe all data logs from the application before closing. This is true whether you use the Exit button provided, or simply close the window at the top.</span></p>
-<p><b>3 USING THE APPLICATION</b></p>
-<p><b>3.0 Loading Campaign Files</b></p>
-<p><b>3.0.1 Loading Files in Dash&rsquo;s Directory</b></p>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;&nbsp;Whenever presented with the option to load campaign data, Dash will always check it&rsquo;s own directory first if no campaigns have been loaded. Once an initial campaign is found in Dash&rsquo;s directory, it will instantly be loaded in for you. If a campaign was already loaded, see </span><b>3.0.2</b><span style="font-weight: 400;">.</span></p>
-<p><b>3.0.2 Loading Files Outside Dash&rsquo;s Directory</b></p>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;&nbsp;When loading additional campaigns into Dash, or if an initial campaign can not be found by Dash in it&rsquo;s directory, a file navigation window will appear:</span></p>
+<p><strong>3.4 Compare Campaigns</strong></p>
+<p><strong>Overview of Compare Campaigns </strong></p>
+<p>Initially the overview for Compare Campaigns will tell the user that a secondary campaign has not been selected for comparison. After one has been selected from within the Advanced <br>Compare Campaigns window, the overview panel will then show the main metrics for each campaign next to each other in a table.</p>
+<p><strong>Advanced Compare Campaigns</strong></p>
+<p>When in the Advanced Compare Campaigns window you will first need to select a campaign to compare with. You can either select a pre loaded campaign if one exists from the drop <br>down box provided, or you can add a campaign by selecting the <strong>Add Campaign </strong>button and choosing the log files to be imported. <br>Then you can select a <strong>Metric</strong> to compare and a <strong>Time Granularity</strong>. Then select the <strong>Update</strong> button and a comparison graph will be generated for you.</p>
 <p></p>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">In the file navigator, select the directory where you have stored your files</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Once in said directory, select the campaign folder with all files to be loaded into Dash.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Click on the Load Campaign button</span></li>
-</ol>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;Dash will then load your campaign. In the event of a failure to do so, Dash will inform you and offer the choice to try again or cancel the action. </span></p>
-<p><b>3.1 Metrics</b></p>
-<p><b>3.1.1 Overview of Metrics </b></p>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;An overview of the campaign&rsquo;s metrics is shown whenever your mouse hovers over the Metric tab.</span></p>
-<p><b>3.1.2 Add a Metric</b></p>
-<p><span style="font-weight: 400;">Once in the Metric section, to add a new metric to the table:</span></p>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Click the Add Metric button.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Select a metric from the list. Selecting &ldquo;None&rdquo; effectively cancels your choice.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Your metric is now listed. To add it to the table, click Update. To filter your metric, see </span><b>3.1.3</b><span style="font-weight: 400;">.</span></li>
-</ol>
-<p><b>3.1.3 Filter a metric </b></p>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;You can filter a metric either on a date range, or by categorical data such as &nbsp;gender, age, income, and context. To filter an existing metric:</span></p>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Select the metric from the table of added metrics.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Alter filter constraints in the table by column. Some constraints may not work. See </span><b>FAQS</b><span style="font-weight: 400;">.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Click Filter when all constraints are selected. Click Update to refresh the table.</span></li>
-</ol>
-<p><b>3.1.4 Delete a metric </b></p>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;To delete a metric, navigate to the metric in your table, then click the Delete button on the metric.</span></p>
-<p><b>3.1.5 Help with Metrics</b></p>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;&nbsp;A helpful guide is provided in Dash</span> <span style="font-weight: 400;">within the Metric section. It covers section </span><b>3.1</b><span style="font-weight: 400;">, with additional explanations of each metric, and other helpful tips. To access this guide, when in the Metric section, click the ? button on the top right hand corner of the window.</span><b> &nbsp;</b></p>
-<p><b>3.2 Graphs</b></p>
-<p><b>3.2.1 Create a graph</b></p>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Click </span><i><span style="font-weight: 400;">Graphs </span></i><span style="font-weight: 400;">on the left menu of main panel </span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">There are two options to create a graph </span></li>
-</ol>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Using premade metric </span></li>
-</ol>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Select premade metric </span></li>
-</ul>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Edit filters as you want (Or you can simply use it without editing)</span></li>
-</ul>
-<ol>
-<li><span style="font-weight: 400;"> Create new filter for graph </span></li>
-</ol>
-<p><b>3.2.2 Compare graphs </b></p>
-<p><b>3.2.3 Export a graph </b></p>
-<p><b>3.2.4 Default setting </b></p>
-<p><b>3.2.5 Print a chart </b></p>
-<p><b>3.3 Compare Campaigns</b></p>
-<p><b>3.3.1 Overview of Compare Campaigns </b></p>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;An overview of how campaigns could be compared is shown whenever you hover your mouse over the Compare Campaigns button in the main application window.</span><b> &nbsp;</b></p>
-<p><b>3.3.2 Compare Campaigns</b></p>
-<p><span style="font-weight: 400;">Campaigns can be compared in two ways:</span></p>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">In tables, through side by side metric comparison</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Graphically, through the use of overlapping line graphs</span></li>
-</ol>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;First, load in a campaign to compare to your main campaign. Click Load Campaigns, then see </span><b>3.0.2</b><span style="font-weight: 400;">.</span></p>
-<p><span style="font-weight: 400;">Once you have loaded a campaign:</span></p>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">To compare in a table, click the Table button. The table will load comparing all main metrics.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">To compare on a graph, click the Graph button. Graphs can be filtered by metrics. See </span><b>3.2</b><span style="font-weight: 400;">.</span></li>
-</ol>
-<p><span style="font-weight: 400;"> &nbsp;&nbsp;&nbsp;You can replace the second campaign with another by clicking the Load Campaign button at any time. When selecting the main campaign as the second campaign, see </span><b>FAQS</b><span style="font-weight: 400;">.</span></p>
-<p><b>3.4 Settings</b></p>
-<p><b>3.4.1 Calculating Bounce Rate </b></p>
-<p><span style="font-weight: 400;">You can define how the bounce rate is calculated in all other features in this section. A visit by a user to an advertised page is a bounce when:</span></p>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Time spent on the page is less than a required minimum to not be considered a bounce </span></li>
-</ol>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">The number of pages viewed is less than a required minimum to not be considered a bounce</span></li>
-</ol>
-<p><span style="font-weight: 400;">It can be changed by selecting the checkbox of the option you wish to use.</span></p>
-<p><b>3.4.2 Application Themes</b></p>
-<p><span style="font-weight: 400;">To set the theme of Dash, click the Themes button in Settings. You can then either choose from: </span></p>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Preset Themes</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">A colour palette, where the selected colours are applied across the background, font and indicated accents throughout Dash.</span></li>
-</ol>
-<p><b>4 FAQS</b></p>
-<p><b>4.1 Unable to load files &nbsp;</b></p>
-<p><span style="font-weight: 400;">If error message shows up when you click </span><i><span style="font-weight: 400;">Load Files</span></i><span style="font-weight: 400;"> button, choose the folder containing log files to be loaded. </span></p>
-<p><b>4.2 Can I add several metrics at the same time? </b></p>
-<p><span style="font-weight: 400;">Yes, you can add any number of metrics by simply clicking Add Metric button(3.1.2).</span></p>
+<p><strong>3.5 Settings</strong></p>
+<p><strong>Overview of Settings</strong></p>
+<p>The settings overview displays your currently selected settings.</p>
+<p><strong>Advanced Settings</strong></p>
+<p>The Advanced Settings Window allows you to change your settings as well as view documentation about the application.</p>
+<p><strong>Database Deletion</strong></p>
+<p>The <strong>Database</strong> button displays a panel that allows you to choose whether your database will be deleted when you exit the application. Simply tick/untick the the <br>tick box provided to save your choice.</p>
+<p><strong>Bounce Rate</strong></p>
+<p>The <strong>Bounce Rate </strong>button allows you to decide whether your bounce rate will be defined by pages visited or time spent on page (less than 5 seconds).</p>
+<p><strong>Appearance</strong></p>
+<p>The <strong>Appearance</strong> button allows you to change the colour scheme for your application so you can customise it to best suit your style. You can select from 4 pre-made <br>themes or create your own.</p>
+<p><strong>Documentation</strong></p>
+<p>The <strong>Documentation</strong> button allows you to view this guide within the application.</p>
+<p><strong>About</strong></p>
+<p>The <strong>About </strong>button displays some information about the developers of the Dash application.</p>
 <p></p>
-<p><b>Can i load a new campaign?</b></p>
+<p><strong>3.6 Feature Help</strong></p>
+<p>A helpful guide to each Dash feature is provided within the each feature section in the top right corner with a &lsquo;?&rsquo; symbol. Clicking on this symbol will provide a help window<br>giving you helpful information about each section in detail.</p>
 <p></p>
-<p><b>Can i customise the look and feel?</b></p>
 <p></p>
-<p><b>Can i compare the current campaign with another one?</b></p>
-<p></p>
-<p><b>Can i export a chart physically and digitally?</b></p>
-</html>
+<p><strong>4 FAQS</strong></p>
+<p><strong>Can I add several metrics at the same time? </strong></p>
+<p>Yes, you can add any number of metrics by simply clicking Add Metric button. They will be added to a scrollable window so you can easily navigate between them.</p>
+<p><strong>Can I load a new campaign?</strong></p>
+<p>Yes, just delete the &ldquo;database&rdquo; directory from the Dash directory and when you load Dash again you will be prompted to load a campaign.</p>
+<p><strong>Can I customise the look and feel?</strong></p>
+<p>Yes, See the appearance section in section <strong>3.5</strong>.</p>
+<p><strong>Can I export a chart physically and digitally?</strong></p>
+<p>Yes, you can both physically and digitally export a chart. The simplest way to do so is to right click on any graph and chose to save or print from the options provided.</p>
+<html>
