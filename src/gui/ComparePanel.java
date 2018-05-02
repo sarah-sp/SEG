@@ -87,9 +87,9 @@ public class ComparePanel extends JPanel implements BorderInterface
 		JPanel label1 = new JPanel();
 		JPanel label2 = new JPanel();
 		JPanel label3 = new JPanel();
-		JLabel labelC = new JLabel("Select Campaign to Compare:");
-		JLabel labelM = new JLabel("Select Metric to Compare:");
-		JLabel labelG = new JLabel("Select Granularity:");
+		JLabel labelC = new JLabel("<html><u>Select Campaign to Compare:</u></html>");
+		JLabel labelM = new JLabel("<html><u>Select Metric to Compare:</u></html>");
+		JLabel labelG = new JLabel("<html><u>Select Granularity:</u></html>");
 		CustomButton addCampaign = new CustomButton("Add Campaign");
 		CustomButton update = new CustomButton("Update");
 		String[] metricChoices = {"None", "Number of Impressions", "Number of Clicks", "Number of Uniques", "Number of Bounces", "Number of Conversions", "Total Cost"};
