@@ -92,7 +92,6 @@ public class GraphPanel extends JPanel
 	private JTextPane textPane;
 	private SimpleAttributeSet attSet;
 	private List<ChartPanel> chartPanelList;
-	private BufferedImage chartImage;
 	private JTextField elementsField;
 	private JRadioButton yes, no;
 	private Font font;
@@ -333,32 +332,39 @@ public class GraphPanel extends JPanel
 				
 				selection = buildStringForRemoval().replaceAll("\\\\", "");
 				
-				if (selection.contains("("))
-				{	
-					remove.setEnabled(elementsField.getText().toString().contains(selection));
-				}
-				else
-				{
-					String[] elements = elementsField.getText().split(" ");
-					
-					boolean enable = false;
-					
-					for (String element : elements)
-					{
-						if (element.equals(selection))
-						{
-							enable = true;
-							break;
-						}
-					}
-					
-					remove.setEnabled(enable);
-				}
+				setRemoveButtonState();
 				
 				textPane.setCaretPosition(0);
-			}	
+			}
 		});
 	}
+	
+	private void setRemoveButtonState() 
+	{
+		String selection = buildStringForRemoval().replaceAll("\\\\", "");
+		
+		if (selection.contains("("))
+		{	
+			remove.setEnabled(elementsField.getText().toString().contains(selection));
+		}
+		else
+		{
+			String[] elements = elementsField.getText().split(" ");
+			
+			boolean enable = false;
+			for (String element : elements)
+			{
+				System.out.println(element);
+				if (element.equals(selection))
+				{
+					enable = true;
+					break;
+				}
+			}
+			
+			remove.setEnabled(enable);
+		}
+	}	
 
 	public void initMetricPanel(JPanel metricPanel) 
 	{
@@ -489,9 +495,9 @@ public class GraphPanel extends JPanel
 				{
 					showAllowedTimeGranularity();
 				}
-				
-				remove.setEnabled(elementsField.getText().contains(selection	));
-				
+			
+				setRemoveButtonState();
+
 			}
 		});
 	}
@@ -802,7 +808,7 @@ public class GraphPanel extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				saveChartImage(chartImage);
+				saveChartImage();
 			}
 		});
 
@@ -1549,7 +1555,7 @@ public class GraphPanel extends JPanel
 		return chart;
 	}
 	
-	public void saveChartImage(BufferedImage chartImage)
+	public void saveChartImage()
 	{
 		try
 		{
@@ -1557,6 +1563,7 @@ public class GraphPanel extends JPanel
 			
 			if (fileName.trim().length() > 0)
 			{			
+				BufferedImage chartImage = chartPanelList.get(chartNames.getSelectedIndex()).getChart().createBufferedImage(625, 625);
 				chooseImageFormat(chartImage, fileName);
 			}
 			else
