@@ -289,7 +289,6 @@ public class GraphPanel extends JPanel
 		leftPanel.add(Box.createVerticalStrut(10));
 		leftPanel.add(chartDatasetPanel);
 		leftPanel.add(Box.createVerticalStrut(5));
-
 		leftPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
 		
 		filters.addListSelectionListener(new ListSelectionListener()
@@ -301,7 +300,6 @@ public class GraphPanel extends JPanel
 
 				int numFilters = filters.getSelectedValuesList().size();
 				String selection = "";
-				
 				
 				if (numFilters == 1)
 				{
@@ -333,8 +331,30 @@ public class GraphPanel extends JPanel
 					group.setEnabled(true);
 				}
 				
-				selection = buildStringForRemoval();
-				remove.setEnabled(elementsField.getText().contains(selection));
+				selection = buildStringForRemoval().replaceAll("\\\\", "");
+				
+				if (selection.contains("("))
+				{	
+					remove.setEnabled(elementsField.getText().toString().contains(selection));
+				}
+				else
+				{
+					String[] elements = elementsField.getText().split(" ");
+					
+					boolean enable = false;
+					
+					for (String element : elements)
+					{
+						if (element.equals(selection))
+						{
+							enable = true;
+							break;
+						}
+					}
+					
+					remove.setEnabled(enable);
+				}
+				
 				textPane.setCaretPosition(0);
 			}	
 		});
@@ -434,16 +454,19 @@ public class GraphPanel extends JPanel
 				
 				for (int i = filters.getMinSelectionIndex(); i <= filters.getMaxSelectionIndex(); i++)
 				{
-					group += filters.getModel().getElementAt(i);
+					if(filters.getSelectedValuesList().contains(filters.getModel().getElementAt(i)))
+					{
+						group += filters.getModel().getElementAt(i);
 									
-					if (i < filters.getMaxSelectionIndex())
-					{
-						group += " ";
-					}
-					else
-					{
-						group += ")";
-					}
+						if (i < filters.getMaxSelectionIndex())
+						{
+							group += " ";
+						}
+						else
+						{
+							group += ")";
+						}
+					}	
 				}
 				
 				elementsField.setText((elementsField.getText() + " " + group).trim());
@@ -457,8 +480,7 @@ public class GraphPanel extends JPanel
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) 
-			{	
-				
+			{		
 				String selection = buildStringForRemoval();
 				
 				removeFilterSelection(selection);
@@ -478,9 +500,8 @@ public class GraphPanel extends JPanel
 	{		
 		if (filters.getSelectedValuesList().size() > 0)
 		{	
-			
 			String updated = elementsField.getText().replaceFirst(selection, "");
-			
+				
 			StringBuilder stringBuilder = new StringBuilder();
 					
 			for (String id : updated.split("\\s+"))
@@ -512,6 +533,7 @@ public class GraphPanel extends JPanel
 			selection = "\\(" + selection.trim() + "\\)";
 			
 		}
+		
 		return selection;
 	}	
 	
@@ -824,9 +846,11 @@ public class GraphPanel extends JPanel
 			{
 				timeGranularityBox.addItem(options[0]);
 			
-				String[] elements = elementsField.getText().split(" ");
+				//String[] elements = elementsField.getText().split(" ");
 				
-				if (elements.length <= 1 && metrics.getSelectedIndex() > 0 && metrics.getSelectedIndex() <=5)
+				int numElements = Math.max(elementsField.getText().split(" ").length, elementsField.getText().split("\\((\\d+(\\s)*){2,}\\)").length);
+				
+				if (numElements == 1 && metrics.getSelectedIndex() > 0 && metrics.getSelectedIndex() <=5)
 				{
 					timeGranularityBox.addItem(options[1]);
 					timeGranularityBox.addItem(options[2]);
@@ -963,8 +987,6 @@ public class GraphPanel extends JPanel
 				chart = createXYLineChart(title);
 		}
 		
-		chartImage = chart.createBufferedImage(650, 650);
-		
 		chart.getPlot().setBackgroundPaint(new Color(230,230,230));
 		chart.getTitle().setFont(font.deriveFont(26.0f));
 		
@@ -1067,6 +1089,16 @@ public class GraphPanel extends JPanel
 		String yAxisTitle = metrics.getSelectedItem().toString();
 		
 		fillCategoryDataset(categorySet, true);
+		
+		if (timeGranularityBox.getSelectedItem().toString().equals("Entire"))
+		{
+			fillCategoryDataset(categorySet, false);
+		}
+		else
+		{
+			SymbolAxis xAxis = null;
+			fillTimeGranularityCategoryDataset(categorySet, xAxis, xAxisTitle);	
+		}
 
 		if (normal)
 		{	
