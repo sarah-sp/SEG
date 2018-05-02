@@ -1,0 +1,13 @@
+<html>
+<blockquote>
+<p class="p1">The Dash application was developed as a software engineering project by students from the University of <br /> Southampton. The team included the following members:</p>
+<ul>
+<li><span style="font-weight: 400;">Ryan Gregory (rdg1g16@soton.ac.uk) &nbsp;</span></li>
+<li><span style="font-weight: 400;">Sanjiv Sagan Maraj (ssm1g16@soton.ac.uk</span></a><span style="font-weight: 400;">
+<li><span style="font-weight: 400;">Sara Plamenova Prodanova (spp1n16@soton.ac.uk)</span><span style="font-weight: 400;"></span></li>
+<li><span style="font-weight: 400;">Radoslav Todorov (rt1g16@soton.ac.uk</span>) &nbsp;</span></li>
+<li><span style="font-weight: 400;">Jiyeon Kim (jk2g15@soton.ac.uk)</span><span style="font-weight: 400;"></span></li>
+</ul>
+<p><span style="font-weight: 400;">The team was supervised by&nbsp;</span><span style="font-weight: 400;">Frederick Nash (fjn1g13@soton.ac.uk<span style="font-weight: 400;">) </span></p>
+</blockquote>
+</html>"
