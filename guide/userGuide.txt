@@ -1,5 +1,6 @@
 <html>
 <p><strong>Dash User Guide</strong></p>
+<p></p>
 <p>Dash was designed for online marketing agencies, with the express purpose of benefiting their customers. <br>The software provides all features for a customer of an online marketing agency to make informed choices on their investment into campaigns lead by an agency. This is made possible through a plethora of features,<br>  allowing anyone, ranging from those new to online advertising, to seasoned veterans versed in data analysis, to support all investment choices with unbiased data.</p>
 <p><strong>PREREQUISITES</strong></p>
 <p>Dash is based on the Java Framework. It cannot be run on machines not supporting the JVM.</p>
@@ -27,8 +28,8 @@
 <p><strong>Loading Files in Dash&rsquo;s Directory</strong></p>
 <p>When presented with the option to load campaign data, Dash will always check it&rsquo;s own directory first for a preloaded database and failing that, a set of correct <br>log files in a log_files directory. If a loaded campaign is found in Dash&rsquo;s directory, the application will instantly be loaded in for you. If the correct log files are located automatically then the database will immediately start loading and when finished,<br> you will be shown the main application window. If neither of these are the case then see the next section.</p>
 <p><strong>Loading Files Outside Dash&rsquo;s Directory</strong></p>
-<p>When loading additional campaigns into Dash, or if an initial campaign can not be found by Dash in it&rsquo;s directory, a file navigation window will appear. In the file <br>navigator, select the directory containing all log files to be loaded into Dash and click on the Load Campaign button. Dash will then load your campaign. In the event of a failure to select the correct log files, <br>Dash will inform you and offer the choice to try again or cancel the action.</p>
-<h2><br /><br /></h2>
+<p>When loading additional campaigns into Dash, or if an initial campaign can not be found by Dash in its directory, a file navigation window will appear. In the file <br>navigator, select the directory containing all log files to be loaded into Dash and click on the Load Campaign button. Dash will then load your campaign. In the event of a failure to select the correct log files, <br>Dash will inform you and offer the choice to try again or cancel the action.</p>
+<p></p>
 <p><strong>3.2 Metrics</strong></p>
 <p><strong>Overview of Metrics </strong></p>
 <p>An overview of your loaded campaign&rsquo;s metrics is shown whenever your mouse hovers over the Metric tab. This will show you a table of your campaign&rsquo;s main metrics.<br> Further hovering your mouse over rows on this table will highlight the rows to make them easier to read and pinpoint.</p>
@@ -82,9 +83,9 @@
 <p></p>
 <p><strong>3.6 Feature Help</strong></p>
 <p>A helpful guide to each Dash feature is provided within the each feature section in the top right corner with a &lsquo;?&rsquo; symbol. Clicking on this symbol will provide a help window<br>giving you helpful information about each section in detail.</p>
-<p></p>
-<p></p>
-<p><strong>4 FAQS</strong></p>
+<ol start="4">
+<li><strong> FAQs </strong></li>
+</ol>
 <p><strong>Can I add several metrics at the same time? </strong></p>
 <p>Yes, you can add any number of metrics by simply clicking Add Metric button. They will be added to a scrollable window so you can easily navigate between them.</p>
 <p><strong>Can I load a new campaign?</strong></p>
