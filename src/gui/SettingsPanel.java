@@ -244,7 +244,7 @@ public class SettingsPanel extends JPanel implements BorderInterface
 				heading.setForeground(Theme.ACTIVE_FG);
 				heading.setFont(new Font("Courier", Font.BOLD, 20));
 				
-				JLabel choose = new JLabel("Make your own:");
+				JLabel choose = new JLabel("Create custom theme:");
 				choose.setFont(new Font("Courier", Font.BOLD, 20));
 				choose.setForeground(Theme.ACTIVE_FG);
 				
@@ -286,10 +286,15 @@ public class SettingsPanel extends JPanel implements BorderInterface
 				addColourButtonListeners(hover, "hover");
 				
 				colours.add(bgLabel);
+				colours.add(Box.createHorizontalStrut(5));
 				colours.add(bg);
+				colours.add(Box.createHorizontalStrut(5));
 				colours.add(fgLabel);
+				colours.add(Box.createHorizontalStrut(5));
 				colours.add(fg);
+				colours.add(Box.createHorizontalStrut(5));
 				colours.add(hoverLabel);
+				colours.add(Box.createHorizontalStrut(5));
 				colours.add(hover);
 				
 				colours.repaint();
