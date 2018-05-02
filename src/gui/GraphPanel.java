@@ -872,7 +872,7 @@ public class GraphPanel extends JPanel
 				}
 				else
 				{
-					displayChart("");
+					displayChart(title);
 					chartNames.addItem(title);
 					chartNames.getModel().setSelectedItem(title);
 					chartPanelList.get(chartNames.getSelectedIndex()).setName(chartNames.getItemAt(chartNames.getSelectedIndex()));
