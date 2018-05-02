@@ -354,6 +354,7 @@ public class GraphPanel extends JPanel
 			boolean enable = false;
 			for (String element : elements)
 			{
+				System.out.println(element);
 				if (element.equals(selection))
 				{
 					enable = true;
@@ -1028,7 +1029,7 @@ public class GraphPanel extends JPanel
 		else
 		{
 			SymbolAxis xAxis = null;
-			fillTimeGranularityCategoryDataset(categorySet, true);	
+			fillTimeGranularityCategoryDataset(categorySet, xAxis, xAxisTitle);	
 		}
 		
 		if (normal)
@@ -1097,12 +1098,12 @@ public class GraphPanel extends JPanel
 		
 		if (timeGranularityBox.getSelectedItem().toString().equals("Entire"))
 		{
-			fillCategoryDataset(categorySet, true);
+			fillCategoryDataset(categorySet, false);
 		}
 		else
 		{
 			SymbolAxis xAxis = null;
-			fillTimeGranularityCategoryDataset(categorySet, true);	
+			fillTimeGranularityCategoryDataset(categorySet, xAxis, xAxisTitle);	
 		}
 
 		if (normal)
@@ -1128,7 +1129,7 @@ public class GraphPanel extends JPanel
 		String yAxisTitle =  metrics.getSelectedItem().toString();
 		SymbolAxis xAxis = null;
 		DefaultCategoryDataset categorySet = new DefaultCategoryDataset(); 
-		fillTimeGranularityCategoryDataset(categorySet, false);
+		fillTimeGranularityCategoryDataset(categorySet, xAxis, xAxisTitle);
 		
 		if (normal)
 		{
@@ -1165,81 +1166,37 @@ public class GraphPanel extends JPanel
 		return xAxisTitle;
 	}
 
-	public void fillTimeGranularityCategoryDataset(DefaultCategoryDataset categorySet, boolean stacked)
+	public void fillTimeGranularityCategoryDataset(DefaultCategoryDataset categorySet, SymbolAxis xAxis, String xAxisTitle)
 	{
 		Map<Integer, MetricFilter> metricFilters = frame.fStorage.getFilters();
 		String[] elements = elementsField.getText().split(" ");
-		
-		Pattern pattern = Pattern.compile("\\d+|(\\((\\d+\\s)+\\d+\\))+");
-		Matcher matcher = pattern.matcher(elementsField.getText());
-		
 		int numLabels = 0;
-		int matches = 0;
 		
-		while (matcher.find())
-		{
-			
-			if (!matcher.group().contains("("))
-			{	
-				String query = metricFilters.get(Integer.parseInt(matcher.group())).getQuery();
-				
-				MetricFilter current = metricFilters.get(Integer.parseInt(matcher.group()));
-				
+		for (int i=0; i < elements.length; i++)
+		{	
+			try 
+			{
+				String query = metricFilters.get(Integer.parseInt(elements[i])).getQuery();
 				ResultSet resultSet = frame.getController().getTimeGranularityResultSet(query, timeGranularityBox.getSelectedItem().toString());
 				
-				try 
-				{
-					while (resultSet.next())
-					{			
-						categorySet.addValue(resultSet.getDouble(1), String.valueOf(matches), stacked == true? "" : current.getFilterDetails());
-						
-						if (matches == 1)
-						{
-							numLabels++;
-						}
-					}
-				} 
-				catch (SQLException sqle) 
-				{
-					sqle.printStackTrace();
-				}
-			}
-			else
-			{
-				String[] groupElements = matcher.group().substring(1, matcher.group().length() - 1).split(" ");
-				String labelText = "Group ID's - ";
-				
-				List<ResultSet> resultSetList = new ArrayList<>();
-				
-				for(int i=0; i < groupElements.length; i++)
-				{
-					MetricFilter current = metricFilters.get(Integer.parseInt(groupElements[i]));
-					labelText += current.getFilterIndex() + ", ";
-					resultSetList.add(frame.getController().getTimeGranularityResultSet(current.getQuery(), timeGranularityBox.getSelectedItem().toString()));
-				}
-				
-				labelText = labelText.substring(0, labelText.length() - 2);
-						
-				try 
-				{
-					while (resultSetList.get(0).next())
+				while (resultSet.next())
+				{					
+					categorySet.addValue(resultSet.getDouble(2), elements[i], resultSet.getString(1));
+					
+					if (i == 0)
 					{
-						double sum = 0;
-						
-						for(int i=0; i < resultSetList.size(); i++)
-						{
-							sum += resultSetList.get(i).getInt(2);
-						}
-						
-						categorySet.addValue(sum, String.valueOf(matches), stacked == true? "" : labelText);
+						numLabels++;
 					}
-				} 
-				catch (SQLException sqle) 
-				{
-					sqle.printStackTrace();
 				}
+			} 
+			catch (SQLException sqle) 
+			{
+				sqle.printStackTrace();
 			}
 		}
+		
+		xAxisTitle = setXAxisTitle(xAxisTitle);
+		xAxis= createCustomSymbolAxis(xAxisTitle, numLabels);
 	}
 
 	public void customiseCategoryPlot(JFreeChart chart)
@@ -1345,68 +1302,26 @@ public class GraphPanel extends JPanel
 	public void fillTimeGranularityPieDataset(DefaultPieDataset pieSet)
 	{
 		Map<Integer, MetricFilter> metricFilters = frame.fStorage.getFilters();
-		Pattern pattern = Pattern.compile("\\d+|(\\((\\d+\\s)+\\d+\\))+");
-		Matcher matcher = pattern.matcher(elementsField.getText());
+		String[] elements = elementsField.getText().split(" ");
 		
-		while (matcher.find())
-		{
-			
-			if (!matcher.group().contains("("))
-			{	
-				String query = metricFilters.get(Integer.parseInt(matcher.group())).getQuery();
-				
-				ResultSet resultSet = frame.getController().getTimeGranularityResultSet(query, timeGranularityBox.getSelectedItem().toString());
-				
-				try 
-				{
-					while (resultSet.next())
-					{					
-						pieSet.setValue(resultSet.getString(1), resultSet.getInt(2));
-					}
-				} 
-				catch (SQLException sqle) 
-				{
-					sqle.printStackTrace();
-				}
-			}
-			else
+		for (int i=0; i < elements.length; i++)
+		{	
+			try 
 			{
-				String[] elements = matcher.group().substring(1, matcher.group().length() - 1).split(" ");
-				String labelText = "Group ID's - ";
-				
-				List<ResultSet> resultSetList = new ArrayList<>();
-				
-				for(int i=0; i < elements.length; i++)
-				{
-					MetricFilter current = metricFilters.get(Integer.parseInt(elements[i]));
-					labelText += current.getFilterIndex() + ", ";
-					resultSetList.add(frame.getController().getTimeGranularityResultSet(current.getQuery(), timeGranularityBox.getSelectedItem().toString()));
-				}
-				
-				labelText = labelText.substring(0, labelText.length() - 2);
-				
-				
-				try 
-				{
-					while (resultSetList.get(0).next())
-					{
-						int sum = 0;
-						
-						for(int i=0; i < resultSetList.size(); i++)
-						{
-							sum += resultSetList.get(i).getInt(2);
-						}
-						
-						pieSet.setValue(resultSetList.get(0).getString(1), sum);
-					}
-				} 
-				catch (SQLException sqle) 
-				{
-					sqle.printStackTrace();
-				}
+				String query = metricFilters.get(Integer.parseInt(elements[i])).getQuery();
+				ResultSet resultSet = frame.getController().getTimeGranularityResultSet(query, timeGranularityBox.getSelectedItem().toString());
+					
+				while (resultSet.next())
+				{					
+					pieSet.setValue(resultSet.getString(1), resultSet.getInt(2));
+				}	
+			} 
+			catch (SQLException sqle) 
+			{
+				sqle.printStackTrace();
 			}
 		}
-	}	
+	}
 	
 	public void fillCategoryDataset(DefaultCategoryDataset categorySet, boolean stacked)
 	{
@@ -1424,7 +1339,7 @@ public class GraphPanel extends JPanel
 				MetricFilter current = metricFilters.get(Integer.parseInt(matcher.group()));
 				String value = current.getValue();
 				
-				double val = value.contains("Â£") ? Double.parseDouble(value.substring(1)) : Double.parseDouble(value);
+				double val = value.contains("�") ? Double.parseDouble(value.substring(1)) : Double.parseDouble(value);
 				categorySet.addValue(val, String.valueOf(matches), stacked == true? "" : current.getFilterDetails());
 			}
 			else
@@ -1543,7 +1458,7 @@ public class GraphPanel extends JPanel
 					{
 						int sum = 0;
 						
-						for(int i=0; i < resultSetList.size(); i++)
+						for(int i=0; i <= resultSetList.size(); i++)
 						{
 							sum += resultSetList.get(i).getInt(2);
 						}
@@ -1631,7 +1546,7 @@ public class GraphPanel extends JPanel
 		String yAxisTitle =  metrics.getSelectedItem().toString();
 		SymbolAxis xAxis = null;
 		DefaultCategoryDataset categorySet = new DefaultCategoryDataset(); 
-		fillTimeGranularityCategoryDataset(categorySet, true);
+		fillTimeGranularityCategoryDataset(categorySet, xAxis, xAxisTitle);
 		
 		chart = ChartFactory.createStackedAreaChart(title, xAxisTitle, yAxisTitle, categorySet, PlotOrientation.VERTICAL, yes.isSelected(), true, false);
 		
