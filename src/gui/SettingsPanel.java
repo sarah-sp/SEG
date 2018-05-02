@@ -108,7 +108,7 @@ public class SettingsPanel extends JPanel implements BorderInterface
 				JPanel fillerCentre = new JPanel();
 				fillerCentre.setBackground(Theme.ACTIVE_BG);
 				
-				JLabel del = new JLabel("Tick to allow deletion the current campaign upon closing the application");
+				JLabel del = new JLabel("Tick to allow deletion of the current campaign upon closing the application");
 				del.setForeground(Theme.ACTIVE_FG);
 				del.setFont(new Font("Courier", Font.BOLD, 20));
 					
