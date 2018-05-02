@@ -159,11 +159,13 @@ public class MetricFilter extends JPanel implements BorderInterface
 	    selectContext.setForeground(Theme.ACTIVE_FG);
 	    
 	    startDate = new JFormattedDateTextField();
+	    startDate.setForeground(Theme.ACTIVE_FG);
 	    startDate.setText(storage.getStartDate().substring(0,10));
 	    startDate.setFont(metricsBox.getFont());
 	    
 	    
 	    endDate = new JFormattedDateTextField();
+	    endDate.setForeground(Theme.ACTIVE_FG);
 	    endDate.setText(storage.getEndDate().substring(0,10));
 	    endDate.setFont(metricsBox.getFont());
 	    

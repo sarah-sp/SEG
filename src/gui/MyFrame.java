@@ -91,8 +91,8 @@ public class MyFrame extends JFrame
 		contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.PAGE_AXIS));
 		contentPane.setBackground(Theme.ACTIVE_BG);
 
-		JScrollPane jsp = new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		setContentPane(jsp);
+		//JScrollPane jsp = new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		setContentPane(contentPane);
 
 
 		boolean dbExists = new File("database/campaign.db").exists();
@@ -216,8 +216,8 @@ public class MyFrame extends JFrame
 	public void refreshMain() 
 	{
 		contentPane.removeAll();
-//		MainPanel mainPanel = new MainPanel(this, contentPane, fStorage, cStorage);
-//		this.mainPanel = mainPanel;
+		MainPanel mainPanel = new MainPanel(this, contentPane, fStorage, cStorage);
+		this.mainPanel = mainPanel;
 		mainPanel.changeTheme(mainPanel, Theme.ACTIVE_BG, Theme.ACTIVE_FG, Theme.ACTIVE_HOVER);
 		contentPane.add(mainPanel);
 		contentPane.revalidate();

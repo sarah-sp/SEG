@@ -333,7 +333,7 @@ public class SettingsPanel extends JPanel implements BorderInterface
 			public void actionPerformed(ActionEvent e) {
 				centrePanel.removeAll();
 				
-				centrePanel.setLayout(new BorderLayout());
+				//centrePanel.setLayout(new BorderLayout());
 				
 				JLabel aboutLabel = new JLabel();
 				try {
@@ -347,18 +347,18 @@ public class SettingsPanel extends JPanel implements BorderInterface
 				JPanel textHolder = new JPanel();
 				textHolder.setLayout(new GridBagLayout());
 				textHolder.setBackground(Theme.ACTIVE_BG);
+//				
+//				JPanel filler = new JPanel();
+//				filler.setBackground(Theme.ACTIVE_BG);
+//				
+//				GridBagConstraints c = new GridBagConstraints();
+//
+//				c.gridx = 1;
+//				c.gridy = 1;
+//				c.fill = GridBagConstraints.BOTH;
+				textHolder.add(aboutLabel);
 				
-				JPanel filler = new JPanel();
-				filler.setBackground(Theme.ACTIVE_BG);
-				
-				GridBagConstraints c = new GridBagConstraints();
-
-				c.gridx = 1;
-				c.gridy = 1;
-				c.fill = GridBagConstraints.BOTH;
-				textHolder.add(aboutLabel, c);
-				
-				JScrollPane scroll = new JScrollPane(textHolder, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				JScrollPane scroll = new JScrollPane(textHolder, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 				scroll.getVerticalScrollBar().setUnitIncrement(20);
 				scroll.getHorizontalScrollBar().setUnitIncrement(20);
 
