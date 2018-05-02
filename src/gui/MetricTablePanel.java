@@ -40,6 +40,7 @@ public class MetricTablePanel extends JPanel implements BorderInterface//POTENTI
 	{
 		setLayout(new BorderLayout());
 		
+
 		metricTable = new MetricTable(frame, storage);
 		metricTable.setName("spread");
 		

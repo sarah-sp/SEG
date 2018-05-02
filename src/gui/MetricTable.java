@@ -12,12 +12,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
+<<<<<<< HEAD
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+=======
+import java.text.SimpleDateFormat;
+
+import javax.swing.JLabel;
+>>>>>>> 74b05ebf8eec7fdb2202de7d7ce4afe848fd544b
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -26,7 +32,10 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+<<<<<<< HEAD
 import model.FilterStorage;
+=======
+>>>>>>> 74b05ebf8eec7fdb2202de7d7ce4afe848fd544b
 import model.Theme;
 
 public class MetricTable extends JTable 
@@ -40,12 +49,19 @@ public class MetricTable extends JTable
 	private DefaultTableModel tableModel;
 	private DefaultTableCellRenderer cellRenderer;
 	private Color hover;
+<<<<<<< HEAD
 	private FilterStorage storage;
 
 	public MetricTable(MyFrame frame, FilterStorage storage)
 	{	
 		this.frame = frame;
 		this.storage = storage;
+=======
+
+	public MetricTable(MyFrame frame)
+	{	
+		this.frame = frame;
+>>>>>>> 74b05ebf8eec7fdb2202de7d7ce4afe848fd544b
 		data = new Object[9];
 		configure();
 		hover = Theme.ACTIVE_HOVER;
@@ -83,6 +99,7 @@ public class MetricTable extends JTable
 		String startDate = filter.startDate.getText();
 		String endDate = filter.endDate.getText();
 		
+<<<<<<< HEAD
 		if(validInput(startDate, endDate, filter)) {
 			data[0] = filter.getFilterIndex();
 			data[1] = filter.metricsBox.getSelectedItem();
@@ -135,6 +152,22 @@ public class MetricTable extends JTable
 		}
 		return false;
   }
+=======
+		data[0] = filter.getFilterIndex();
+		data[1] = filter.metricsBox.getSelectedItem();
+		data[2] = startDate;
+		data[3] = endDate;
+		data[4] = filter.selectGender.getSelectedItem();
+		data[5] = filter.selectAge.getSelectedItem();
+		data[6] = filter.selectIncome.getSelectedItem();
+		data[7] = filter.selectContext.getSelectedItem();
+		data[8] = filter.getValue() == null ? frame.getController().getFilteredMetricValue(filter) : filter.getValue();
+		//If filter stays the same then value is stored so query doesn't have to be run again
+		
+		tableModel.addRow(data);
+		tableModel.fireTableDataChanged();
+	}
+>>>>>>> 74b05ebf8eec7fdb2202de7d7ce4afe848fd544b
 
 	public void configure() 
 	{	

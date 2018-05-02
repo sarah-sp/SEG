@@ -95,6 +95,7 @@ public class MyFrame extends JFrame
 		setContentPane(contentPane);
 
 
+
 		boolean dbExists = new File("database/campaign.db").exists();
 		
 		if(!dbExists) {
@@ -218,6 +219,7 @@ public class MyFrame extends JFrame
 		contentPane.removeAll();
 		MainPanel mainPanel = new MainPanel(this, contentPane, fStorage, cStorage);
 		this.mainPanel = mainPanel;
+
 		mainPanel.changeTheme(mainPanel, Theme.ACTIVE_BG, Theme.ACTIVE_FG, Theme.ACTIVE_HOVER);
 		contentPane.add(mainPanel);
 		contentPane.revalidate();

@@ -39,7 +39,11 @@ public class MetricFilterPanel extends JPanel implements BorderInterface
 	private FilterStorage storage;
 	private JPanel buttonPanel, filterPanel;
 	private CustomButton add, update;
+<<<<<<< HEAD
 	
+=======
+	Format format = new SimpleDateFormat("yyyy-MM-dd");
+>>>>>>> 74b05ebf8eec7fdb2202de7d7ce4afe848fd544b
 	
 	
 	public MetricFilterPanel(MyFrame frame, FilterStorage storage)
@@ -136,6 +140,7 @@ public class MetricFilterPanel extends JPanel implements BorderInterface
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+<<<<<<< HEAD
 //				if(validInput()){
 					storage.getMetricTablePanel().updateTableRecords();
 					storage.getFrame().getMainPanel().getMenuPanel().getGrahpPanel().updateFilterList();
@@ -146,6 +151,45 @@ public class MetricFilterPanel extends JPanel implements BorderInterface
 	  
 
     
+=======
+				if(validInput()){
+					storage.getMetricTablePanel().updateTableRecords();
+					storage.getFrame().getMainPanel().getMenuPanel().getGrahpPanel().updateFilterList();
+				} 
+			}
+		});
+	}
+	
+    
+    public boolean validInput(){
+
+        Date currFromDate, currToDate, end, start;
+		try {
+			end = (Date)format.parseObject(storage.getEndDate().substring(0,10));
+			start = (Date)format.parseObject(storage.getStartDate().substring(0,10));
+			currFromDate = (Date) format.parseObject(MetricFilter.startDate.getText());
+			currToDate = (Date) format.parseObject(MetricFilter.endDate.getText());
+			
+            if(currFromDate.after(end) || currFromDate.before(start) || currToDate.after(end) || currToDate.before(start)) {
+            	JOptionPane.showMessageDialog(this, "Date out of bounds", "Invalid Input", JOptionPane.INFORMATION_MESSAGE, null);
+            	
+            	if(currFromDate.after(end) || currFromDate.before(start))
+            		MetricFilter.startDate.setText(storage.getStartDate().substring(0,10));
+            	if(currToDate.after(end) || currToDate.before(start))
+            		MetricFilter.endDate.setText(storage.getEndDate().substring(0,10));
+            	return false;
+            } else {
+            	return true;
+            }
+		} catch (ParseException e1) {
+			JOptionPane.showMessageDialog(this, "Invalid Input", "Invalid Input", JOptionPane.INFORMATION_MESSAGE, null);
+			MetricFilter.startDate.setText(storage.getStartDate().substring(0,10));
+			MetricFilter.endDate.setText(storage.getEndDate().substring(0,10));
+        	
+		}
+		return false;
+    }
+>>>>>>> 74b05ebf8eec7fdb2202de7d7ce4afe848fd544b
 	public void updateMetricPanel()
 	{
 		scrollPaneHolder.removeAll();
